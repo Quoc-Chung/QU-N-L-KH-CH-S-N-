@@ -1,0 +1,89 @@
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\bin\Debug\BAITAPLON.exe.config
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\bin\Debug\BAITAPLON.exe
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\bin\Debug\BAITAPLON.pdb
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\BAITAPLON.csproj.AssemblyReference.cache
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\BAITAPLON.frmDangNhap.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\BAITAPLON.Properties.Resources.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\BAITAPLON.csproj.GenerateResource.cache
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\BAITAPLON.csproj.CoreCompileInputs.cache
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\BAITAPLON.exe
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\BAITAPLON.pdb
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\BAITAPLON.frmMain.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmLoaiPhong.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmPhong.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmSearchKH.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmSearchPhong.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmTBTrangThietBi.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmThanhToanPhong.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmThietBi.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmChangeProfile.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmKH.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmNV.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\LUU_BAI_TAP_LON\BAITAPLON\obj\Debug\QLKS.frmSDDichVu.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.csproj.AssemblyReference.cache
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmChangeProfile.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmKH.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmLoaiPhong.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmMain.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmDangNhap.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmNV.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmPhong.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmSDDichVu.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmSearchKH.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmSearchPhong.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmTBTrangThietBi.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmThanhToanPhong.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmThietBi.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.Properties.Resources.resources
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.csproj.GenerateResource.cache
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.csproj.CoreCompileInputs.cache
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.exe
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.pdb
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\bin\Debug\BAITAPLON.exe.config
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\bin\Debug\BAITAPLON.exe
+D:\KI1NAM3\LTRINH_TQUAN\BTL\hunghoang\BAI-TAP-LON-WINFORM\BAITAPLON\bin\Debug\BAITAPLON.pdb
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\bin\Debug\BAITAPLON.exe.config
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\bin\Debug\BAITAPLON.exe
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\bin\Debug\BAITAPLON.pdb
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\BAITAPLON.csproj.AssemblyReference.cache
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmChangeProfile.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmKH.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmLoaiPhong.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\BAITAPLON.frmMain.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\BAITAPLON.frmDangNhap.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmNV.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmPhong.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmSDDichVu.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmSearchKH.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmSearchPhong.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmTBTrangThietBi.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmThanhToanPhong.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\QLKS.frmThietBi.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\BAITAPLON.Properties.Resources.resources
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\BAITAPLON.csproj.GenerateResource.cache
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\BAITAPLON.csproj.CoreCompileInputs.cache
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\BAITAPLON.exe
+D:\Laptrinhtrucquan\BaiTapLonLLTQ\BAITAPLON\obj\Debug\BAITAPLON.pdb
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\bin\Debug\BAITAPLON.exe.config
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\bin\Debug\BAITAPLON.exe
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\bin\Debug\BAITAPLON.pdb
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.csproj.AssemblyReference.cache
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\QLKS.frmChangeProfile.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmMain.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmDangNhap.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.Properties.Resources.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.csproj.GenerateResource.cache
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.csproj.CoreCompileInputs.cache
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.exe
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.pdb
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmPhongThue.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.DangKiPhongThue.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmLoaiPhong.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmNV.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmPhong.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmSDDichVu.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmSearchKH.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmSearchPhong.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmTBTrangThietBi.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmThanhToanPhong.resources
+D:\KI_MOT_NAM_BA\WINFORM\Bai_Tap_Lon\TONG KET\BAI-TAP-LON-WINFORM\BAITAPLON\obj\Debug\BAITAPLON.frmThietBi.resources
