@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BAITAPLON.Model;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -12,7 +13,7 @@ namespace BAITAPLON
         SqlCommand command;
         SqlDataAdapter adapter = new SqlDataAdapter();
         DataTable table = new DataTable();
-        string str1 = @"Data Source=LAPTOP-LACSE5QS\SQLEXPRESS;Initial Catalog=QUANLI_KHACHSAN_BTL;Integrated Security=True;";
+        string str1 = ConnectString.ConecString;
 
         public frmSDDichVu()
         {

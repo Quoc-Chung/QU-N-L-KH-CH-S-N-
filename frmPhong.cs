@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using BAITAPLON.Model;
 
 namespace BAITAPLON
 {
@@ -12,7 +13,7 @@ namespace BAITAPLON
 		SqlCommand command;
 		SqlDataAdapter adapter = new SqlDataAdapter();
 		DataTable table = new DataTable();
-		string strConnection = @"Data Source=LAPTOP-LACSE5QS\SQLEXPRESS;Initial Catalog=QUANLI_KHACHSAN_BTL;Integrated Security=True;";
+		string strConnection = ConnectString.ConecString;
 
 		public frmPhong()
 		{

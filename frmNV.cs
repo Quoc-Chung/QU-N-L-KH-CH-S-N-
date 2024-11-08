@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BAITAPLON.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +18,7 @@ namespace BAITAPLON
         SqlConnection connection;
         SqlCommand command;
 
-        string str = "Data Source=LAPTOP-LACSE5QS\\SQLEXPRESS;Initial Catalog=QUANLI_KHACHSAN_BTL;Integrated Security=True;";
+        string str = ConnectString.ConecString;
         SqlDataAdapter adapter = new SqlDataAdapter();
         DataTable table = new DataTable();
         public frmNV()
@@ -302,14 +303,15 @@ namespace BAITAPLON
 					string imageName = row.Cells["ANH"].Value.ToString(); // Lấy tên ảnh
 					string imagePath = Path.Combine(@"..\..\Resources\AnhThe", imageName);
 
-					try
-					{
-						pictureBox1.Image = Image.FromFile(imagePath);
-					}
-					catch (Exception ex)
-					{
-						MessageBox.Show("Không thể tải ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						pictureBox1.Image = null; 
+                    try
+                    {
+                        pictureBox1.Image = Image.FromFile(imagePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Không thể tải ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        pictureBox1.Image = null;
+                    }
 				}
 				else
 				{
@@ -318,8 +320,9 @@ namespace BAITAPLON
 			}
 		}
 
+		private void pictureBox1_Click(object sender, EventArgs e)
+		{
 
-
-
+		}
 	}
 }

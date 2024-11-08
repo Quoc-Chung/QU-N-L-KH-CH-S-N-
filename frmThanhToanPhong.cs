@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BAITAPLON.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace BAITAPLON
     public partial class frmThanhToanPhong : Form
     {
 		private SqlConnection connection;
-		private string connectionString = "Data Source=LAPTOP-LACSE5QS\\SQLEXPRESS;Initial Catalog=QUANLI_KHACHSAN_BTL;Integrated Security=True;";
+		private string connectionString = ConnectString.ConecString;
 		private SqlCommand command;
 		
 

@@ -240,6 +240,7 @@
 			this.lblTenNhanVien.Size = new System.Drawing.Size(194, 22);
 			this.lblTenNhanVien.TabIndex = 4;
 			this.lblTenNhanVien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+		
 			// 
 			// label1
 			// 

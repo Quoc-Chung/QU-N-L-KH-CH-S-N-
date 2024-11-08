@@ -1,4 +1,5 @@
 ﻿using BAITAPLON;
+using BAITAPLON.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +39,7 @@ namespace QLKS
 				return;
 			}
 
-			using (SqlConnection connection = new SqlConnection("Data Source=LAPTOP-LACSE5QS\\SQLEXPRESS;Initial Catalog=QUANLI_KHACHSAN_BTL;Integrated Security=True;"))
+			using (SqlConnection connection = new SqlConnection(ConnectString.ConecString))
 			{
 				try
 				{
@@ -80,6 +81,11 @@ namespace QLKS
 				}
 			}
 		}
-	}
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+    }
 
 }

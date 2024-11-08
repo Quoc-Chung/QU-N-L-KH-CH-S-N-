@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using BAITAPLON.Model;
+using System;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BAITAPLON
@@ -14,13 +9,22 @@ namespace BAITAPLON
 	public partial class frmDangNhap : Form
 	{
 		private SqlConnection connection;
-		private string connectionString = "Data Source=LAPTOP-LACSE5QS\\SQLEXPRESS;Initial Catalog=QUANLI_KHACHSAN_BTL;Integrated Security=True;";
+		private string connectionString = ConnectString.ConecString;
+
+		private string imagePath1 = System.IO.Path.Combine(Application.StartupPath, "Resources", "Ani", "1.png");
+		private string imagePath2 = System.IO.Path.Combine(Application.StartupPath, "Resources", "Ani", "2.png");
+		private string imagePath3 = System.IO.Path.Combine(Application.StartupPath, "Resources", "Ani", "3.gif");
+		private string imagePath4 = System.IO.Path.Combine(Application.StartupPath, "Resources", "Ani", "4.png");
+
+		private bool gifShown = false; // Biến để kiểm tra GIF đã được hiển thị hay chưa
+
 		public frmDangNhap()
 		{
-			
 			InitializeComponent();
-			txtMaNhanVien.Focus();
 
+			pictureBoxStatus.SizeMode = PictureBoxSizeMode.StretchImage;
+			pictureBoxStatus.Image = Image.FromFile(imagePath1);
+			txtMaNhanVien.Focus();
 		}
 
 		private void btnDangNhap_Click(object sender, EventArgs e)
@@ -62,8 +66,7 @@ namespace BAITAPLON
 								string hoTen = reader["HOTEN"].ToString();
 								DateTime ngaySinh = Convert.ToDateTime(reader["NGAYSINH"]);
 
-								// Show debug message to confirm values
-								MessageBox.Show($"HoTen: {hoTen}, NgaySinh: {ngaySinh.ToShortDateString()}");
+								MessageBox.Show($"Đăng nhập thành công! Chào mừng {hoTen}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 								this.Hide(); // Hide the login form
 
@@ -90,7 +93,6 @@ namespace BAITAPLON
 				}
 			}
 		}
-
 		private void btnThoat_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("Bạn có muốn thoát chương trình ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -101,13 +103,55 @@ namespace BAITAPLON
 
 		private void frmDangNhap_Load(object sender, EventArgs e)
 		{
-			// Ẩn tất cả các form đang hoạt động
+			
 			foreach (Form form in Application.OpenForms)
 			{
-				if (form != this) // Đảm bảo không ẩn form đăng nhập
+				if (form != this) 
 				{
 					form.Hide();
 				}
+			}
+		}
+		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		{
+			
+			if (!checkBox1.Checked)
+			{
+				txtMatKhau.UseSystemPasswordChar = false;
+			}
+			else 
+			{
+				txtMatKhau.UseSystemPasswordChar = true;
+			}
+		}
+
+		private void txtMaNhanVien_TextChanged(object sender, EventArgs e)
+		{
+			if (!string.IsNullOrWhiteSpace(txtMaNhanVien.Text))
+			{
+				pictureBoxStatus.Image = Image.FromFile(imagePath2);
+			}
+			else
+			{
+				pictureBoxStatus.Image = Image.FromFile(imagePath1);
+			}
+		}
+
+		private void txtMatKhau_TextChanged(object sender, EventArgs e)
+		{
+			if (!string.IsNullOrWhiteSpace(txtMatKhau.Text))
+			{
+				if (!gifShown)  // Nếu GIF chưa được hiển thị
+				{
+					pictureBoxStatus.Image = Image.FromFile(imagePath3); // Hiển thị GIF
+					gifShown = true; // Đánh dấu là GIF đã hiển thị
+				}
+			}
+			else
+			{
+				// Nếu mật khẩu trống, quay lại ảnh mặc định
+				pictureBoxStatus.Image = Image.FromFile(imagePath1);
+				gifShown = false; // Reset lại trạng thái GIF
 			}
 		}
 	}

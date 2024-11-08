@@ -106,7 +106,7 @@ namespace BAITAPLON
 					// Quay lại form đăng nhập
 					frmDangNhap dangNhapForm = new frmDangNhap();
 					this.Hide(); // Ẩn form hiện tại
-					dangNhapForm.Show(); // Hiển thị form đăng nhập
+					dangNhapForm.Show(); 
 				}
 			}
 
@@ -115,6 +115,8 @@ namespace BAITAPLON
 			frmThanhToanPhong thanhToan = new frmThanhToanPhong();
 			thanhToan.Show();
 		}
+
+		
 	}
 
 	}

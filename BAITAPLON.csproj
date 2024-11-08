@@ -130,6 +130,7 @@
     <Compile Include="frmThietBi.Designer.cs">
       <DependentUpon>frmThietBi.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\ConnectString.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DangKiPhongThue.resx">
@@ -232,6 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LOGIC_DANGKI.txt" />
+    <None Include="Resources\2%28121%29.jpg" />
     <Content Include="Resources\AnhPhong\ba.jpg" />
     <Content Include="Resources\AnhPhong\bay.jpg" />
     <Content Include="Resources\AnhPhong\bon.jpg" />
@@ -256,9 +258,26 @@
     <Content Include="Resources\AnhThe\hai.jpg" />
     <Content Include="Resources\AnhThe\mot.jpg" />
     <Content Include="Resources\AnhThe\nam.jpg" />
+    <Content Include="Resources\Ani\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Ani\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Ani\3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Ani\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\CSDL\Screenshot 2024-10-27 003320.png" />
+    <None Include="Resources\images.jpg" />
+    <None Include="Resources\DANGKI.jpg" />
+    <None Include="Resources\pms-la-gi-6.jpg" />
+    <None Include="Resources\PHANMEMQUANLI.png" />
     <None Include="Resources\main.jpg" />
     <None Include="Resources\lodo.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

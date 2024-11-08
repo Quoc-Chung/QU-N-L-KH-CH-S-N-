@@ -1,4 +1,5 @@
-﻿using BAITAPLON.Properties;
+﻿using BAITAPLON.Model;
+using BAITAPLON.Properties;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,13 +14,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
+
 namespace BAITAPLON
 {
 	public partial class frmPhongThue : Form
 	{
 		private SqlConnection connection;
-		private string connectionString = "Data Source=LAPTOP-LACSE5QS\\SQLEXPRESS;Initial Catalog=QUANLI_KHACHSAN_BTL;Integrated Security=True;";
-		private SqlCommand command;
+
+		private string connectionString = ConnectString.ConecString;
+        private SqlCommand command;
 		private DataTable table = new DataTable();
 
 		public static string Phong_Nguoi_Dung_Chon;
