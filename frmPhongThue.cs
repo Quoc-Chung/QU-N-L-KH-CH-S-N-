@@ -83,7 +83,7 @@ namespace BAITAPLON
 				ListViewItem item = new ListViewItem(maPhong);
 				item.SubItems.Add(tang);
 
-				item.BackColor = trangThai ? Color.LimeGreen : Color.Red;
+				item.BackColor = trangThai ? Color.Red: Color.LimeGreen;
 				item.SubItems.Add(trangThai ? "Đã thuê" : "Chưa có người thuê");
 				listView.Items.Add(item);
 			}
@@ -536,5 +536,9 @@ namespace BAITAPLON
 			dangKiPhongThue.Show();
 		}
 
+		private void btnThoat_Click(object sender, EventArgs e)
+		{
+			this.Close();
+		}
 	}
 }

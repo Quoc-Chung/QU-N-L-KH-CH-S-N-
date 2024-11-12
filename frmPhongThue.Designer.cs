@@ -87,7 +87,7 @@
 			this.dtmNgayTra.Format = System.Windows.Forms.DateTimePickerFormat.Short;
 			this.dtmNgayTra.Location = new System.Drawing.Point(82, 156);
 			this.dtmNgayTra.Name = "dtmNgayTra";
-			this.dtmNgayTra.Size = new System.Drawing.Size(112, 26);
+			this.dtmNgayTra.Size = new System.Drawing.Size(112, 30);
 			this.dtmNgayTra.TabIndex = 1;
 			// 
 			// dtmNgayThue
@@ -96,7 +96,7 @@
 			this.dtmNgayThue.Format = System.Windows.Forms.DateTimePickerFormat.Short;
 			this.dtmNgayThue.Location = new System.Drawing.Point(84, 119);
 			this.dtmNgayThue.Name = "dtmNgayThue";
-			this.dtmNgayThue.Size = new System.Drawing.Size(112, 26);
+			this.dtmNgayThue.Size = new System.Drawing.Size(112, 30);
 			this.dtmNgayThue.TabIndex = 2;
 			// 
 			// label2
@@ -105,7 +105,7 @@
 			this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label2.Location = new System.Drawing.Point(19, 23);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(91, 15);
+			this.label2.Size = new System.Drawing.Size(117, 20);
 			this.label2.TabIndex = 4;
 			this.label2.Text = "Nhân viên lập : ";
 			// 
@@ -125,7 +125,7 @@
 			this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label4.Location = new System.Drawing.Point(6, 128);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(67, 15);
+			this.label4.Size = new System.Drawing.Size(86, 20);
 			this.label4.TabIndex = 6;
 			this.label4.Text = "Ngày thuê:";
 			// 
@@ -135,7 +135,7 @@
 			this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label5.Location = new System.Drawing.Point(8, 165);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(54, 15);
+			this.label5.Size = new System.Drawing.Size(70, 20);
 			this.label5.TabIndex = 7;
 			this.label5.Text = "Ngày trả";
 			// 
@@ -171,7 +171,7 @@
 			this.txtLoaiPhong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtLoaiPhong.Location = new System.Drawing.Point(84, 85);
 			this.txtLoaiPhong.Name = "txtLoaiPhong";
-			this.txtLoaiPhong.Size = new System.Drawing.Size(112, 23);
+			this.txtLoaiPhong.Size = new System.Drawing.Size(112, 27);
 			this.txtLoaiPhong.TabIndex = 13;
 			// 
 			// label7
@@ -180,7 +180,7 @@
 			this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label7.Location = new System.Drawing.Point(8, 93);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(70, 15);
+			this.label7.Size = new System.Drawing.Size(91, 20);
 			this.label7.TabIndex = 12;
 			this.label7.Text = "Loại phòng:";
 			// 
@@ -189,7 +189,7 @@
 			this.txtMaPhong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.txtMaPhong.Location = new System.Drawing.Point(82, 47);
 			this.txtMaPhong.Name = "txtMaPhong";
-			this.txtMaPhong.Size = new System.Drawing.Size(112, 23);
+			this.txtMaPhong.Size = new System.Drawing.Size(112, 27);
 			this.txtMaPhong.TabIndex = 11;
 			// 
 			// label6
@@ -198,7 +198,7 @@
 			this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label6.Location = new System.Drawing.Point(11, 47);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(65, 15);
+			this.label6.Size = new System.Drawing.Size(84, 20);
 			this.label6.TabIndex = 10;
 			this.label6.Text = "Mã phòng:";
 			// 
@@ -248,7 +248,7 @@
 			this.txtMaKhachHang.Location = new System.Drawing.Point(80, 23);
 			this.txtMaKhachHang.Margin = new System.Windows.Forms.Padding(4);
 			this.txtMaKhachHang.Name = "txtMaKhachHang";
-			this.txtMaKhachHang.Size = new System.Drawing.Size(175, 23);
+			this.txtMaKhachHang.Size = new System.Drawing.Size(175, 27);
 			this.txtMaKhachHang.TabIndex = 20;
 			// 
 			// listViewKhachHang
@@ -401,7 +401,7 @@
 			this.txtCMND.Location = new System.Drawing.Point(345, 21);
 			this.txtCMND.Margin = new System.Windows.Forms.Padding(4);
 			this.txtCMND.Name = "txtCMND";
-			this.txtCMND.Size = new System.Drawing.Size(153, 23);
+			this.txtCMND.Size = new System.Drawing.Size(153, 27);
 			this.txtCMND.TabIndex = 5;
 			// 
 			// label10
@@ -422,7 +422,7 @@
 			this.txtDiaChi.Location = new System.Drawing.Point(80, 107);
 			this.txtDiaChi.Margin = new System.Windows.Forms.Padding(4);
 			this.txtDiaChi.Name = "txtDiaChi";
-			this.txtDiaChi.Size = new System.Drawing.Size(175, 23);
+			this.txtDiaChi.Size = new System.Drawing.Size(175, 27);
 			this.txtDiaChi.TabIndex = 5;
 			// 
 			// txtDienThoai
@@ -432,7 +432,7 @@
 			this.txtDienThoai.Location = new System.Drawing.Point(345, 64);
 			this.txtDienThoai.Margin = new System.Windows.Forms.Padding(4);
 			this.txtDienThoai.Name = "txtDienThoai";
-			this.txtDienThoai.Size = new System.Drawing.Size(153, 23);
+			this.txtDienThoai.Size = new System.Drawing.Size(153, 27);
 			this.txtDienThoai.TabIndex = 5;
 			// 
 			// label11
@@ -463,7 +463,7 @@
 			this.txtHoTen.Location = new System.Drawing.Point(80, 68);
 			this.txtHoTen.Margin = new System.Windows.Forms.Padding(4);
 			this.txtHoTen.Name = "txtHoTen";
-			this.txtHoTen.Size = new System.Drawing.Size(175, 23);
+			this.txtHoTen.Size = new System.Drawing.Size(175, 27);
 			this.txtHoTen.TabIndex = 5;
 			// 
 			// btnThoat
@@ -476,6 +476,7 @@
 			this.btnThoat.Size = new System.Drawing.Size(128, 30);
 			this.btnThoat.TabIndex = 19;
 			this.btnThoat.Text = "Thoát";
+			this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
 			// 
 			// groupBox3
 			// 
@@ -562,7 +563,7 @@
 			// 
 			// frmPhongThue
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(765, 550);
 			this.Controls.Add(this.groupBox3);

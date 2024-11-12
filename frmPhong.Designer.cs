@@ -58,7 +58,7 @@ namespace BAITAPLON
 			this.cboLoaiPhong.Location = new System.Drawing.Point(98, 54);
 			this.cboLoaiPhong.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
 			this.cboLoaiPhong.Name = "cboLoaiPhong";
-			this.cboLoaiPhong.Size = new System.Drawing.Size(188, 23);
+			this.cboLoaiPhong.Size = new System.Drawing.Size(188, 28);
 			this.cboLoaiPhong.TabIndex = 6;
 			// 
 			// txtMaPhong
@@ -130,7 +130,7 @@ namespace BAITAPLON
 			this.numericUpDown1.Location = new System.Drawing.Point(98, 86);
 			this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.Size = new System.Drawing.Size(53, 25);
+			this.numericUpDown1.Size = new System.Drawing.Size(53, 29);
 			this.numericUpDown1.TabIndex = 15;
 			// 
 			// label4
@@ -147,7 +147,7 @@ namespace BAITAPLON
 			// radKhongTrong
 			// 
 			this.radKhongTrong.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.radKhongTrong.Location = new System.Drawing.Point(157, 124);
+			this.radKhongTrong.Location = new System.Drawing.Point(185, 120);
 			this.radKhongTrong.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.radKhongTrong.Name = "radKhongTrong";
 			this.radKhongTrong.Size = new System.Drawing.Size(84, 28);
@@ -163,7 +163,7 @@ namespace BAITAPLON
 			this.radTrong.Location = new System.Drawing.Point(98, 122);
 			this.radTrong.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.radTrong.Name = "radTrong";
-			this.radTrong.Size = new System.Drawing.Size(53, 28);
+			this.radTrong.Size = new System.Drawing.Size(81, 28);
 			this.radTrong.TabIndex = 12;
 			this.radTrong.TabStop = true;
 			this.radTrong.Text = "Trống";
@@ -247,7 +247,7 @@ namespace BAITAPLON
 			// 
 			// frmPhong
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackgroundImage = global::BAITAPLON.Properties.Resources.anh4;
 			this.ClientSize = new System.Drawing.Size(462, 338);
