@@ -145,8 +145,6 @@ namespace BAITAPLON
 				}
 			}
 		}
-
-
 		private void listView_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			// NẾU MỘT PHÒNG ĐƯỢC CHỌN 
@@ -174,7 +172,6 @@ namespace BAITAPLON
 					btnSua.Enabled = true;
 					btnXoa.Enabled = true;
 				}
-				// Truy vấn thông tin phòng đã thuê
 				string truy_van_phong_da_thue = @"
 													SELECT l.LOAIPHONG, tp.NGAYTHUE, tp.NGAYTRA, dm.ANHPHONG, dm.TINHTRANG
 													FROM DANHMUCPHONG AS dm
@@ -204,12 +201,10 @@ namespace BAITAPLON
 							{
 								dtmNgayThue.Value = reader.GetDateTime(reader.GetOrdinal("NGAYTHUE"));
 							}
-
 							if (!reader.IsDBNull(reader.GetOrdinal("NGAYTRA")))
 							{
 								dtmNgayTra.Value = reader.GetDateTime(reader.GetOrdinal("NGAYTRA"));
 							}
-
 							if (!reader.IsDBNull(reader.GetOrdinal("ANHPHONG")))
 							{
 								string imageFileName = reader["ANHPHONG"].ToString();
@@ -238,12 +233,10 @@ namespace BAITAPLON
 																FROM DANHMUCPHONG AS dm
 																INNER JOIN LOAIPHONG AS l ON dm.MALOAIPHONG = l.MALOAIPHONG
 																WHERE dm.MAPHONG = @maPhong;";
-
 							using (SqlCommand command2 = new SqlCommand(truyvan_phong_chua_thue, connection))
 							{
 								command2.Parameters.AddWithValue("@maPhong", Phong_Nguoi_Dung_Chon);
 								SqlDataReader reader2 = command2.ExecuteReader();
-
 								if (reader2.Read())
 								{
 									txtMaPhong.Text = Phong_Nguoi_Dung_Chon;
@@ -277,7 +270,6 @@ namespace BAITAPLON
 								{
 									MessageBox.Show("Không tìm thấy thông tin phòng.");
 								}
-
 								reader2.Close();
 							}
 						}
@@ -296,35 +288,53 @@ namespace BAITAPLON
 			}
 		   }
 
-		private void listViewKhachHang_SelectedIndexChanged(object sender, EventArgs e)
-		{
-		
-			if (listViewKhachHang.SelectedItems.Count > 0)
-			{
-				ListViewItem selectedItem = listViewKhachHang.SelectedItems[0];
-				string MaKhachHang = selectedItem.SubItems[0].Text;
-				string HoTen = selectedItem.SubItems[1].Text;
-				string CMND = selectedItem.SubItems[2].Text;
-				string GioiTinh = selectedItem.SubItems[3].Text;
-				string DiaChi = selectedItem.SubItems[4].Text;
-				string DienThoai = selectedItem.SubItems[5].Text;
-				txtMaKhachHang.Text = MaKhachHang;
-				txtHoTen.Text = HoTen;
-				txtCMND.Text = CMND;
+        private void listViewKhachHang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Kiểm tra xem có mục nào được chọn hay không
+            if (listViewKhachHang.SelectedItems.Count > 0)
+            {
+                // Lấy mục được chọn
+                ListViewItem selectedItem = listViewKhachHang.SelectedItems[0];
 
-				if (GioiTinh == "Nam")
-				{
-					radNam.Checked = true;
-				}
-				else
-				{
-					radNu.Checked = true;
-				}
-				txtDiaChi.Text = DiaChi;
-				txtDienThoai.Text = DienThoai;
-			}
-		}
-		public void ResetHienThi()
+                // Lấy giá trị từ các subitem của mục đã chọn
+                string MaKhachHang = selectedItem.SubItems[0].Text;
+                string HoTen = selectedItem.SubItems[1].Text;
+                string CMND = selectedItem.SubItems[2].Text;
+                string GioiTinh = selectedItem.SubItems[3].Text;
+                string DiaChi = selectedItem.SubItems[4].Text;
+                string DienThoai = selectedItem.SubItems[5].Text;
+
+                // Gán giá trị vào các textbox và radio button
+                txtMaKhachHang.Text = MaKhachHang;
+                txtHoTen.Text = HoTen;
+                txtCMND.Text = CMND;
+
+                if (GioiTinh == "Nam")
+                {
+                    radNam.Checked = true;
+                }
+                else
+                {
+                    radNu.Checked = true;
+                }
+
+                txtDiaChi.Text = DiaChi;
+                txtDienThoai.Text = DienThoai;
+            }
+            else
+            {
+                // Nếu không có mục nào được chọn, có thể làm sạch các trường nhập liệu
+                txtMaKhachHang.Clear();
+                txtHoTen.Clear();
+                txtCMND.Clear();
+                radNam.Checked = false;
+                radNu.Checked = false;
+                txtDiaChi.Clear();
+                txtDienThoai.Clear();
+            }
+        }
+
+        public void ResetHienThi()
 		{
 			txtMaKhachHang.Text = "";
 			txtHoTen.Text = " ";
@@ -365,124 +375,263 @@ namespace BAITAPLON
 				}
 			}
 		}
-		private void btnThem_Click(object sender, EventArgs e)
-		{
-			string maKhachHang = txtMaKhachHang.Text.Trim();
-			string phongNguoiDungChon = Phong_Nguoi_Dung_Chon;
+        private bool IsValidMaKhachHang(string maKhachHang)
+        {
+            return !maKhachHang.Any(c => !Char.IsLetterOrDigit(c));
+        }
+        private bool IsValidHoTen(string hoTen)
+        {     
+            return hoTen.All(c => Char.IsLetter(c) || Char.IsWhiteSpace(c));
+        }
 
-			using (SqlConnection connection = new SqlConnection(connectionString))
-			{
-				try
-				{
-					connection.Open();
-					// Kiểm tra xem mã khách hàng đã tồn tại trong bảng KHACHHANG chưa
-					string checkCustomerQuery = "SELECT COUNT(*) FROM KHACHHANG WHERE MAKHACHHANG = @MAKHACHHANG";
-					using (SqlCommand checkCommand = new SqlCommand(checkCustomerQuery, connection))
-					{
-						checkCommand.Parameters.AddWithValue("@MAKHACHHANG", maKhachHang);
-						int customerExists = (int)checkCommand.ExecuteScalar();
+        private bool IsValidDiaChi(string diaChi)
+        {     
+            return !diaChi.Any(c => !Char.IsLetterOrDigit(c) && !Char.IsWhiteSpace(c));
+        }
+        private bool IsValidCMND(string cmnd)
+        {
+            return cmnd.Length == 12 && cmnd.All(Char.IsDigit);
+        }
 
-						if (customerExists > 0)
-						{
-							MessageBox.Show("Mã khách hàng đã tồn tại! Vui lòng nhập mã khách hàng mới.");
-							txtMaKhachHang.Clear();
-							txtMaKhachHang.Focus();
-							return;
-						}
-					}
-					// Lấy số hóa đơn thuê phòng
-					string querySoHoaDonThue = "SELECT SHDTHUEPHONG FROM THUEPHONG WHERE MAPHONG = @MAPHONG";
-					string soHoaDonThue = null;
-					using (SqlCommand command = new SqlCommand(querySoHoaDonThue, connection))
-					{
-						command.Parameters.AddWithValue("@MAPHONG", phongNguoiDungChon);
-						soHoaDonThue = command.ExecuteScalar() as string;
-					}
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {      
+            return phoneNumber.Length == 10 && phoneNumber.All(Char.IsDigit) && phoneNumber.StartsWith("0");
+        }
 
-					if (string.IsNullOrEmpty(soHoaDonThue))
-					{
-						MessageBox.Show("Không tìm thấy hóa đơn thuê phòng cho phòng này!");
-						return;
-					}
 
-					// Kiểm tra xem khách hàng đã tồn tại trong phòng chưa
-					if (KiemTraKhachHangTonTaiTrongPhong(maKhachHang, soHoaDonThue))
-					{
-						MessageBox.Show("Khách hàng đã tồn tại trong phòng này!");
-						return;
-					}
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            string maKhachHang = txtMaKhachHang.Text.Trim();
+            string phongNguoiDungChon = Phong_Nguoi_Dung_Chon;
 
-					// Thêm khách hàng mới vào bảng KHACHHANG
-					string insertCustomerQuery = @"
-                INSERT INTO KHACHHANG (MAKHACHHANG, HOTEN, CMND, GIOITINH, DIACHI, DIENTHOAI)
-                VALUES (@MAKHACHHANG, @HOTEN, @CMND, @GIOITINH, @DIACHI, @DIENTHOAI)";
-					using (SqlCommand command = new SqlCommand(insertCustomerQuery, connection))
-					{
-						command.Parameters.AddWithValue("@MAKHACHHANG", maKhachHang);
-						command.Parameters.AddWithValue("@HOTEN", txtHoTen.Text.Trim());
-						command.Parameters.AddWithValue("@CMND", txtCMND.Text.Trim());
-						command.Parameters.AddWithValue("@GIOITINH", radNam.Checked ? 1 : 0);
-						command.Parameters.AddWithValue("@DIACHI", txtDiaChi.Text);
-						command.Parameters.AddWithValue("@DIENTHOAI", txtDienThoai.Text.Trim());
-						command.ExecuteNonQuery();
-					}
-					// Thêm khách hàng vào bảng CHITIETTHUEPHONG
-					string insertRoomDetailQuery = @"
-                INSERT INTO CHITIETTHUEPHONG (SHDTHUEPHONG, MAKHACHHANG) 
-                VALUES (@SHDTHUEPHONG, @MAKHACHHANG)";
-					using (SqlCommand roomCommand = new SqlCommand(insertRoomDetailQuery, connection))
-					{
-						roomCommand.Parameters.AddWithValue("@SHDTHUEPHONG", soHoaDonThue);
-						roomCommand.Parameters.AddWithValue("@MAKHACHHANG", maKhachHang);
-						roomCommand.ExecuteNonQuery();
-					}
-					// Thông báo thành công và tải lại danh sách khách hàng trong phòng	
-					MessageBox.Show("Thêm khách hàng vào phòng thành công!");
-					LoadKhachHangTheoPhong(phongNguoiDungChon);
-				}
-				catch (Exception ex)
-				{
-					// In chi tiết lỗi để kiểm tra
-					MessageBox.Show("Lỗi khi thêm khách hàng vào phòng: " + ex.ToString());
-				}
-			}
-		}
-		private void btnSua_Click(object sender, EventArgs e)
-		{
-			using (SqlConnection connection = new SqlConnection(connectionString))
-			{
-				try
-				{
-					connection.Open();
-					string query = "UPDATE KHACHHANG SET HOTEN = @HOTEN, GIOITINH = @GIOITINH, DIACHI = @DIACHI, DIENTHOAI = @DIENTHOAI WHERE CMND = @CMND";
-					using (SqlCommand command = new SqlCommand(query, connection))
-					{
-						command.Parameters.AddWithValue("@HOTEN", txtHoTen.Text.Trim());
-						command.Parameters.AddWithValue("@GIOITINH", radNam.Checked ? 1 : 0);
-						command.Parameters.AddWithValue("@DIACHI", txtDiaChi.Text.Trim());
-						command.Parameters.AddWithValue("@DIENTHOAI", txtDienThoai.Text.Trim());
-						command.Parameters.AddWithValue("@CMND", txtCMND.Text.Trim());
+        
+            if (string.IsNullOrEmpty(maKhachHang) || string.IsNullOrEmpty(txtHoTen.Text) || string.IsNullOrEmpty(txtCMND.Text) ||
+                string.IsNullOrEmpty(txtDiaChi.Text) || string.IsNullOrEmpty(txtDienThoai.Text))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin.");
+                return;
+            }
 
-						int result = command.ExecuteNonQuery();
-						if (result > 0)
-						{
-							MessageBox.Show("Sửa thông tin khách hàng thành công!");
-							ResetHienThi();
-							LoadKhachHangTheoPhong(Phong_Nguoi_Dung_Chon);
-						}
-						else
-						{
-							MessageBox.Show("Sửa thông tin khách hàng thất bại.");
-						}
-					}
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show("Lỗi khi sửa thông tin khách hàng: " + ex.Message);
-				}
-			}
-		}
-		private void btnXoa_Click(object sender, EventArgs e)
+       
+            if (!IsValidMaKhachHang(maKhachHang))
+            {
+                MessageBox.Show("Mã khách hàng không được chứa ký tự đặc biệt.");
+                txtMaKhachHang.Focus();
+                return;
+            }
+
+         
+            if (!IsValidHoTen(txtHoTen.Text))
+            {
+                MessageBox.Show("Họ tên không được chứa số và ký tự đặc biệt.");
+                txtHoTen.Focus();
+                return;
+            }
+
+         
+            if (!IsValidDiaChi(txtDiaChi.Text))
+            {
+                MessageBox.Show("Địa chỉ không được chứa ký tự đặc biệt.");
+                txtDiaChi.Focus();
+                return;
+            }
+
+            if (!IsValidCMND(txtCMND.Text.Trim()))
+            {
+                MessageBox.Show("CMND phải có 12 chữ số, không chứa ký tự đặc biệt hoặc chữ cái.");
+                txtCMND.Focus();
+                return;
+            }
+
+          
+            if (!IsValidPhoneNumber(txtDienThoai.Text.Trim()))
+            {
+                MessageBox.Show("Số điện thoại phải có 10 chữ số, không chứa ký tự đặc biệt, bắt đầu bằng số 0.");
+                txtDienThoai.Focus();
+                return;
+            }
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    
+                    string checkCustomerQuery = "SELECT COUNT(*) FROM KHACHHANG WHERE MAKHACHHANG = @MAKHACHHANG";
+                    using (SqlCommand checkCommand = new SqlCommand(checkCustomerQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@MAKHACHHANG", maKhachHang);
+                        int customerExists = (int)checkCommand.ExecuteScalar();
+
+                        if (customerExists > 0)
+                        {
+                            MessageBox.Show("Mã khách hàng đã tồn tại! Vui lòng nhập mã khách hàng mới.");
+                            txtMaKhachHang.Clear();
+                            txtMaKhachHang.Focus();
+                            return;
+                        }
+                    }
+
+                
+                    string querySoHoaDonThue = "SELECT SHDTHUEPHONG FROM THUEPHONG WHERE MAPHONG = @MAPHONG";
+                    string soHoaDonThue = null;
+                    using (SqlCommand command = new SqlCommand(querySoHoaDonThue, connection))
+                    {
+                        command.Parameters.AddWithValue("@MAPHONG", phongNguoiDungChon);
+                        soHoaDonThue = command.ExecuteScalar() as string;
+                    }
+
+                    if (string.IsNullOrEmpty(soHoaDonThue))
+                    {
+                        MessageBox.Show("Không tìm thấy hóa đơn thuê phòng cho phòng này!");
+                        return;
+                    }
+
+                    if (KiemTraKhachHangTonTaiTrongPhong(maKhachHang, soHoaDonThue))
+                    {
+                        MessageBox.Show("Khách hàng đã tồn tại trong phòng này!");
+                        return;
+                    }   
+                    string insertCustomerQuery = @"
+												INSERT INTO KHACHHANG (MAKHACHHANG, HOTEN, CMND, GIOITINH, DIACHI, DIENTHOAI)
+												VALUES (@MAKHACHHANG, @HOTEN, @CMND, @GIOITINH, @DIACHI, @DIENTHOAI)";
+                    using (SqlCommand command = new SqlCommand(insertCustomerQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@MAKHACHHANG", maKhachHang);
+                        command.Parameters.AddWithValue("@HOTEN", txtHoTen.Text.Trim());
+                        command.Parameters.AddWithValue("@CMND", txtCMND.Text.Trim());
+                        command.Parameters.AddWithValue("@GIOITINH", radNam.Checked ? 1 : 0);
+                        command.Parameters.AddWithValue("@DIACHI", txtDiaChi.Text);
+                        command.Parameters.AddWithValue("@DIENTHOAI", txtDienThoai.Text.Trim());
+                        command.ExecuteNonQuery();
+                    }
+                    string insertRoomDetailQuery = @"
+													INSERT INTO CHITIETTHUEPHONG (SHDTHUEPHONG, MAKHACHHANG) 
+													VALUES (@SHDTHUEPHONG, @MAKHACHHANG)";
+                    using (SqlCommand roomCommand = new SqlCommand(insertRoomDetailQuery, connection))
+                    {
+                        roomCommand.Parameters.AddWithValue("@SHDTHUEPHONG", soHoaDonThue);
+                        roomCommand.Parameters.AddWithValue("@MAKHACHHANG", maKhachHang);
+                        roomCommand.ExecuteNonQuery();
+                    }
+                      
+                    MessageBox.Show("Thêm khách hàng vào phòng thành công!");
+                    LoadKhachHangTheoPhong(phongNguoiDungChon);
+                }
+                catch (Exception ex)
+                {
+                
+                    MessageBox.Show("Lỗi khi thêm khách hàng vào phòng: " + ex.ToString());
+                }
+            }
+        }
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            string maKhachHang = txtMaKhachHang.Text.Trim(); // Mã khách hàng
+
+            // Kiểm tra các trường không được để trống
+            if (string.IsNullOrEmpty(maKhachHang) || string.IsNullOrEmpty(txtHoTen.Text) || string.IsNullOrEmpty(txtCMND.Text) ||
+                string.IsNullOrEmpty(txtDiaChi.Text) || string.IsNullOrEmpty(txtDienThoai.Text))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin.");
+                return;
+            }
+
+            // Validate Mã khách hàng
+            if (!IsValidMaKhachHang(maKhachHang))
+            {
+                MessageBox.Show("Mã khách hàng không được chứa ký tự đặc biệt.");
+                txtMaKhachHang.Focus();
+                return;
+            }
+
+            // Validate Họ tên
+            if (!IsValidHoTen(txtHoTen.Text))
+            {
+                MessageBox.Show("Họ tên không được chứa số và ký tự đặc biệt.");
+                txtHoTen.Focus();
+                return;
+            }
+
+            // Validate Địa chỉ
+            if (!IsValidDiaChi(txtDiaChi.Text))
+            {
+                MessageBox.Show("Địa chỉ không được chứa ký tự đặc biệt.");
+                txtDiaChi.Focus();
+                return;
+            }
+
+            // Validate CMND
+            if (!IsValidCMND(txtCMND.Text.Trim()))
+            {
+                MessageBox.Show("CMND phải có 12 chữ số, không chứa ký tự đặc biệt hoặc chữ cái.");
+                txtCMND.Focus();
+                return;
+            }
+
+            // Validate Số điện thoại
+            if (!IsValidPhoneNumber(txtDienThoai.Text.Trim()))
+            {
+                MessageBox.Show("Số điện thoại phải có 10 chữ số, không chứa ký tự đặc biệt, bắt đầu bằng số 0.");
+                txtDienThoai.Focus();
+                return;
+            }
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Kiểm tra xem mã khách hàng có tồn tại không
+                    string checkCustomerQuery = "SELECT COUNT(*) FROM KHACHHANG WHERE MAKHACHHANG = @MAKHACHHANG";
+                    using (SqlCommand checkCommand = new SqlCommand(checkCustomerQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@MAKHACHHANG", maKhachHang);
+                        int customerExists = (int)checkCommand.ExecuteScalar();
+
+                        if (customerExists == 0)
+                        {
+                            MessageBox.Show("Mã khách hàng không tồn tại!");
+                            return;
+                        }
+                    }
+
+                    // Cập nhật thông tin khách hàng
+                    string updateCustomerQuery = @"
+                UPDATE KHACHHANG 
+                SET HOTEN = @HOTEN, GIOITINH = @GIOITINH, DIACHI = @DIACHI, DIENTHOAI = @DIENTHOAI 
+                WHERE MAKHACHHANG = @MAKHACHHANG";
+
+                    using (SqlCommand updateCommand = new SqlCommand(updateCustomerQuery, connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@MAKHACHHANG", maKhachHang);
+                        updateCommand.Parameters.AddWithValue("@HOTEN", txtHoTen.Text.Trim());
+                        updateCommand.Parameters.AddWithValue("@GIOITINH", radNam.Checked ? 1 : 0);
+                        updateCommand.Parameters.AddWithValue("@DIACHI", txtDiaChi.Text.Trim());
+                        updateCommand.Parameters.AddWithValue("@DIENTHOAI", txtDienThoai.Text.Trim());
+
+                        int result = updateCommand.ExecuteNonQuery();
+                        if (result > 0)
+                        {
+                            MessageBox.Show("Sửa thông tin khách hàng thành công!");
+                            ResetHienThi();
+                            LoadKhachHangTheoPhong(Phong_Nguoi_Dung_Chon);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sửa thông tin khách hàng thất bại.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi sửa thông tin khách hàng: " + ex.Message);
+                }
+            }
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
 		{
 			string maKhachHang = txtMaKhachHang.Text.Trim();
 
@@ -493,8 +642,7 @@ namespace BAITAPLON
 				{
 					try
 					{
-						connection.Open();
-					
+						connection.Open();			
 						string deleteDetailQuery = "DELETE FROM CHITIETTHUEPHONG WHERE MAKHACHHANG = @MAKHACHHANG";
 						using (SqlCommand command = new SqlCommand(deleteDetailQuery, connection))
 						{
@@ -512,8 +660,7 @@ namespace BAITAPLON
 
 								MessageBox.Show("Xóa khách hàng thành công!");
 								ResetHienThi();
-								LoadKhachHangTheoPhong(Phong_Nguoi_Dung_Chon); // Cập nhật lại danh sách khách hàng theo phòng
-							
+								LoadKhachHangTheoPhong(Phong_Nguoi_Dung_Chon); // Cập nhật lại danh sách khách hàng theo phòng						
 							}
 							else
 							{
@@ -528,7 +675,6 @@ namespace BAITAPLON
 				}
 			}
 		}
-
 		private void btnDangKiThue_Click(object sender, EventArgs e)
 		{
 			

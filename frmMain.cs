@@ -13,24 +13,36 @@ namespace BAITAPLON
 {
 	public partial class frmMain : Form
 	{
-		public string MaNhanVien { get; set; }
+		public  string MaNhanVien { get; set; }
 		public string HoTen { get; set; }
 
 		public string PassWord { get; set; }
-		public DateTime NgaySinh { get; set; } // Thêm thuộc tính cho ngày sinh 
-
-
+		public DateTime NgaySinh { get; set; } 
+		public string Quyen { get; set ; }
 
 		public frmMain()
 		{
 			InitializeComponent();		
 		}
-		public void LoadData()
-		{
-			lblTenNhanVien.Text = HoTen;
-			lblNgaySinh.Text = NgaySinh.ToString("dd/MM/yyyy");
-		}
-		private void mnLoaiPhong_Click(object sender, EventArgs e)
+        public void LoadData()
+        {
+            if (Quyen == "NV")
+            {
+                lblTenTaiKhoan.Text = "NHÂN VIÊN:";
+                quanliToolStripMenuItem.Enabled = false;
+                quanliToolStripMenuItem.HideDropDown(); // Ẩn các menu con nếu có
+            }
+            else
+            {
+                lblTenTaiKhoan.Text = "QUẢN LÍ:";
+                quanliToolStripMenuItem.Enabled = true; // Cho phép nếu là quản lý
+            }
+
+            lblTenNhanVien.Text = HoTen;
+            lblNgaySinh.Text = NgaySinh.ToString("dd/MM/yyyy");
+        }
+
+        private void mnLoaiPhong_Click(object sender, EventArgs e)
 		{
 			frmLoaiPhong form = new frmLoaiPhong();
 			form.Show(); 
@@ -45,9 +57,7 @@ namespace BAITAPLON
 		{
 			frmSearchPhong form = new frmSearchPhong();
 			form.Show();
-
 		}
-
 		private void mnKhachHang_Click(object sender, EventArgs e)
 		{
 			frmSearchKH form  = new frmSearchKH();
@@ -116,7 +126,18 @@ namespace BAITAPLON
 			thanhToan.Show();
 		}
 
-		
-	}
 
-	}
+        private void quảnLíNhânViênToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			frmNV frmNV = new frmNV();
+			frmNV.Show();
+        }
+
+        private void quảnLýToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+			frmDoanhThu frmDoanhThu = new frmDoanhThu();
+			frmDoanhThu.Show();
+        }
+    }
+
+}

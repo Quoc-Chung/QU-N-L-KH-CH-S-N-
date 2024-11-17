@@ -27,18 +27,21 @@ namespace BAITAPLON
         }
         public void LoadData()
         {
+            // Tạo command
             command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM NHANVIEN";
+            command.CommandText = "SELECT * FROM TAI_KHOAN WHERE QUYEN != 'ADMIN'";
 
-            /* - CÂU LỆNH THỰC THI CÂU TRUY VẤN -*/
-            command.ExecuteNonQuery();
+            // Sử dụng SqlDataAdapter để điền dữ liệu vào DataTable
             adapter.SelectCommand = command;
 
+            // Clear dữ liệu trong DataTable trước khi tải lại
             table.Clear();
+
             adapter.Fill(table);
 
             dataGridView.DataSource = table;
         }
+
         private void frmNV_Load(object sender, EventArgs e)
         {
             try
@@ -55,7 +58,6 @@ namespace BAITAPLON
         private string selectedImagePath = ""; // Biến lưu đường dẫn ảnh
         private void cmdAdd_Click(object sender, EventArgs e)
         {
-
             // Kiểm tra mã nhân viên phải đủ 5 ký tự
             if (txtMaNV.Text.Length != 5)
             {
@@ -66,7 +68,7 @@ namespace BAITAPLON
             {
                 MessageBox.Show("Họ tên và địa chỉ nhân viên không được bỏ trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }         
+            }
             if (string.IsNullOrEmpty(txtMaNV.Text) || string.IsNullOrEmpty(txtMKhau.Text) ||
                 string.IsNullOrEmpty(txtDThoai.Text))
             {
@@ -78,6 +80,7 @@ namespace BAITAPLON
                 MessageBox.Show("Số điện thoại phải đủ 10 ký tự!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             try
             {
                 int sdt;
@@ -86,13 +89,26 @@ namespace BAITAPLON
                     MessageBox.Show("Số điện thoại không hợp lệ! Vui lòng nhập lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                // Tạo câu lệnh SQL INSERT
-                command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO NHANVIEN (MANHANVIEN, MATKHAU, HOTEN, NGAYSINH, GIOITINH, DIACHI, SODIENTHOAI,NGAYVAOLAM,ANH) " +
-                                      "VALUES (@MaNhanVien, @MatKhau, @HoTen, @NgaySinh, @GioiTinh, @DiaCHi,@SoDienThoai,@NgayVaoLam,@Anh)";
 
-                // Thêm các tham số vào câu lệnh SQL
-                command.Parameters.AddWithValue("@MaNhanVien", txtMaNV.Text);
+                // Kiểm tra xem mã nhân viên đã tồn tại trong cơ sở dữ liệu chưa
+                command = connection.CreateCommand();
+                command.CommandText = "SELECT COUNT(*) FROM TAI_KHOAN WHERE MATAIKHOAN = @MaTaiKhoan";
+                command.Parameters.AddWithValue("@MaTaiKhoan", txtMaNV.Text);
+
+                int count = (int)command.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    MessageBox.Show("Mã nhân viên đã tồn tại. Vui lòng nhập mã khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Tiến hành thêm dữ liệu nếu không trùng khóa chính
+                command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO TAI_KHOAN (MATAIKHOAN, MATKHAU, HOTEN, NGAYSINH, GIOITINH, DIACHI, SODIENTHOAI, NGAYVAOLAM, ANH) " +
+                                      "VALUES (@MaTaiKhoan, @MatKhau, @HoTen, @NgaySinh, @GioiTinh, @DiaCHi, @SoDienThoai, @NgayVaoLam, @Anh)";
+
+                command.Parameters.AddWithValue("@MaTaiKhoan", txtMaNV.Text);
                 command.Parameters.AddWithValue("@MatKhau", txtMKhau.Text);
                 command.Parameters.AddWithValue("@HoTen", txtTenNV.Text);
                 command.Parameters.AddWithValue("@NgaySinh", dTPicker_NSinh.Value);
@@ -109,11 +125,11 @@ namespace BAITAPLON
                 else
                 {
                     MessageBox.Show("Vui lòng chọn giới tính.");
+                    return;
                 }
 
                 command.Parameters.AddWithValue("@Anh", string.IsNullOrEmpty(selectedImagePath) ? DBNull.Value : (object)selectedImagePath);
 
-              
                 command.ExecuteNonQuery();
 
                 MessageBox.Show("Thêm dữ liệu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -164,14 +180,14 @@ namespace BAITAPLON
                     MessageBox.Show("Số điện thoại không hợp lệ! Vui lòng nhập lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                string oldMaNV = dataGridView.CurrentRow.Cells["MANHANVIEN"].Value.ToString();
+                string oldMaNV = dataGridView.CurrentRow.Cells["MATAIKHOAN"].Value.ToString();
                 // Tạo câu lệnh SQL INSERT
                 command = connection.CreateCommand();
-                command.CommandText = "UPDATE NHANVIEN SET MANHANVIEN=@MaNhanVien, MATKHAU=@MatKhau, HOTEN=@HoTen, NGAYSINH=@NgaySinh, GIOITINH=@GioiTinh, DIACHI=@DiaCHi, SODIENTHOAI=@SoDienThoai,NGAYVAOLAM=@NgayVaoLam,ANH=@Anh " +
-                                      " WHERE MANHANVIEN = @OldMaNV";
+                command.CommandText = "UPDATE TAI_KHOAN SET MATAIKHOAN=@MATAIKHOAN, MATKHAU=@MatKhau, HOTEN=@HoTen, NGAYSINH=@NgaySinh, GIOITINH=@GioiTinh, DIACHI=@DiaCHi, SODIENTHOAI=@SoDienThoai,NGAYVAOLAM=@NgayVaoLam,ANH=@Anh " +
+                                      " WHERE MATAIKHOAN = @OldMaNV";
 
                 // Thêm các tham số vào câu lệnh SQL
-                command.Parameters.AddWithValue("@MaNhanVien", txtMaNV.Text);
+                command.Parameters.AddWithValue("@MaTaiKhoan", txtMaNV.Text);
                 command.Parameters.AddWithValue("@MatKhau", txtMKhau.Text);
                 command.Parameters.AddWithValue("@HoTen", txtTenNV.Text);
                 command.Parameters.AddWithValue("@NgaySinh", dTPicker_NSinh.Value);
@@ -223,7 +239,7 @@ namespace BAITAPLON
                 {
                     // Tạo câu lệnh SQL DELETE
                     command = connection.CreateCommand();
-                    command.CommandText = "DELETE FROM NHANVIEN WHERE MANHANVIEN = @MaNV";
+                    command.CommandText = "DELETE FROM TAI_KHOAN WHERE MATAIKHOAN = @MaNV";
 
                     // Thêm tham số vào câu lệnh SQL
                     command.Parameters.AddWithValue("@MaNV", txtMaNV.Text);
@@ -260,48 +276,70 @@ namespace BAITAPLON
             // Nếu người dùng chọn tệp thành công
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Lấy đường dẫn tới file ảnh
                 selectedImagePath = openFileDialog.FileName;
-
-                // Hiển thị ảnh trong PictureBox
                 pictureBox1.Image = Image.FromFile(selectedImagePath); // Hiển thị trong PictureBox nếu cần
             }
         }
 
-		private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-		{
-			// Kiểm tra xem người dùng có click vào hàng hợp lệ hay không
-			if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-			{
-				// Lấy hàng được click
-				DataGridViewRow row = dataGridView.Rows[e.RowIndex];
+        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Kiểm tra xem người dùng có click vào hàng hợp lệ hay không
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                // Lấy hàng được click
+                DataGridViewRow row = dataGridView.Rows[e.RowIndex];
 
-				// Gán giá trị từ các ô trong hàng được chọn vào các TextBox tương ứng
-				txtMaNV.Text = row.Cells["MANHANVIEN"].Value.ToString();
-				txtMKhau.Text = row.Cells["MATKHAU"].Value.ToString();
-				txtTenNV.Text = row.Cells["HOTEN"].Value.ToString();
-				dTPicker_NSinh.Value = DateTime.Parse(row.Cells["NGAYSINH"].Value.ToString());
-				txtDChi.Text = row.Cells["DIACHI"].Value.ToString();
-				txtDThoai.Text = row.Cells["SODIENTHOAI"].Value.ToString();
-				dTPicker_NVaoLam.Value = DateTime.Parse(row.Cells["NGAYVAOLAM"].Value.ToString());
+                // Kiểm tra và gán giá trị vào các TextBox
+                txtMaNV.Text = row.Cells["MATAIKHOAN"].Value?.ToString() ?? string.Empty;
+                txtMKhau.Text = row.Cells["MATKHAU"].Value?.ToString() ?? string.Empty;
+                txtTenNV.Text = row.Cells["HOTEN"].Value?.ToString() ?? string.Empty;
 
-				// Xử lý giới tính
-				if (row.Cells["GIOITINH"].Value.ToString() == "True")
-				{
-					optNam.Checked = true;
-					optNu.Checked = false;
-				}
-				else
-				{
-					optNu.Checked = true;
-					optNam.Checked = false;
-				}
+                // Xử lý ngày sinh
+                if (DateTime.TryParse(row.Cells["NGAYSINH"].Value?.ToString(), out DateTime ngaySinh))
+                {
+                    dTPicker_NSinh.Value = ngaySinh;
+                }
+                else
+                {
+                    dTPicker_NSinh.Value = DateTime.Now; // Giá trị mặc định
+                }
 
-				// Lấy đường dẫn ảnh
-				if (row.Cells["ANH"].Value != DBNull.Value && !string.IsNullOrEmpty(row.Cells["ANH"].Value.ToString()))
-				{
-					string imageName = row.Cells["ANH"].Value.ToString(); // Lấy tên ảnh
-					string imagePath = Path.Combine(@"..\..\Resources\AnhThe", imageName);
+                txtDChi.Text = row.Cells["DIACHI"].Value?.ToString() ?? string.Empty;
+                txtDThoai.Text = row.Cells["SODIENTHOAI"].Value?.ToString() ?? string.Empty;
+
+                // Xử lý ngày vào làm
+                if (DateTime.TryParse(row.Cells["NGAYVAOLAM"].Value?.ToString(), out DateTime ngayVaoLam))
+                {
+                    dTPicker_NVaoLam.Value = ngayVaoLam;
+                }
+                else
+                {
+                    dTPicker_NVaoLam.Value = DateTime.Now; // Giá trị mặc định
+                }
+
+                // Xử lý giới tính
+                string gioiTinh = row.Cells["GIOITINH"].Value?.ToString();
+                if (gioiTinh == "True")
+                {
+                    optNam.Checked = true;
+                    optNu.Checked = false;
+                }
+                else if (gioiTinh == "False")
+                {
+                    optNam.Checked = false;
+                    optNu.Checked = true;
+                }
+                else
+                {
+                    optNam.Checked = false;
+                    optNu.Checked = false; // Không xác định
+                }
+
+                // Xử lý ảnh
+                string imageName = row.Cells["ANH"].Value?.ToString();
+                if (!string.IsNullOrEmpty(imageName))
+                {
+                    string imagePath = Path.Combine(@"..\..\Resources\AnhThe", imageName);
 
                     try
                     {
@@ -312,17 +350,13 @@ namespace BAITAPLON
                         MessageBox.Show("Không thể tải ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         pictureBox1.Image = null;
                     }
-				}
-				else
-				{
-					pictureBox1.Image = null; 
-				}
-			}
-		}
+                }
+                else
+                {
+                    pictureBox1.Image = null;
+                }
+            }
+        }
 
-		private void pictureBox1_Click(object sender, EventArgs e)
-		{
-
-		}
-	}
+    }
 }

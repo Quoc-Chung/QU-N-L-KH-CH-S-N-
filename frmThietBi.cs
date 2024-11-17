@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,236 +15,220 @@ namespace BAITAPLON
 {
     public partial class frmThietBi : Form
     {
-		string connectionstring = ConnectString.ConecString;
-		SqlConnection con;
-		SqlCommand cmd;
-		SqlDataAdapter adt = new SqlDataAdapter();
-		DataTable dt = new DataTable();
-		DataView dv;
-		public frmThietBi()
+        string connectionstring = ConnectString.ConecString;
+        SqlConnection con;
+        SqlCommand cmd;
+        SqlDataAdapter adt = new SqlDataAdapter();
+        DataTable dt = new DataTable();
+        DataView dv;
+
+        public frmThietBi()
         {
             InitializeComponent();
-			dataGridView1.SelectionChanged += new EventHandler(dataGridView1_SelectionChanged);
-		}
+            dataGridView1.SelectionChanged += new EventHandler(dataGridView1_SelectionChanged);
+        }
 
-		private void frmThietBi_Load(object sender, EventArgs e)
-		{
-			con = new SqlConnection(connectionstring);
-			cmd = con.CreateCommand();
-			cmd.CommandText = "select * from THIETBI_DICHVU";
-			adt.SelectCommand = cmd;
-			dt.Clear();
-			adt.Fill(dt);
-			dv = new DataView(dt);
-			dataGridView1.DataSource = dt;
-		}
-		private void LoadData()
-		{
-			cmd = con.CreateCommand();
-			cmd.CommandText = "SELECT * FROM THIETBI_DICHVU";
-			adt.SelectCommand = cmd;
-			dt.Clear();
-			adt.Fill(dt);
-			dv = new DataView(dt);
-			dataGridView1.DataSource = dt;
-		}
-		private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-		{
-			// Kiểm tra xem có dòng nào được chọn không
-			if (dataGridView1.SelectedRows.Count > 0)
-			{
-				// Lấy dòng đầu tiên được chọn
-				DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+        private void frmThietBi_Load(object sender, EventArgs e)
+        {
+            con = new SqlConnection(connectionstring);
+            cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT * FROM THIETBI_DICHVU";
+            adt.SelectCommand = cmd;
+            dt.Clear();
+            adt.Fill(dt);
+            dv = new DataView(dt);
+            dataGridView1.DataSource = dt;
+        }
 
-				// Gán giá trị vào các TextBox tương ứng
-				txtMaTB.Text = selectedRow.Cells["MATHIETBI"].Value.ToString(); // Giả sử cột mã loại phòng có tên là "MaLoaiP"
-				txtTenTB.Text = selectedRow.Cells["TENTHIETBI"].Value.ToString();  // Giả sử cột tên loại phòng có tên là "TenLoaiP"
-				txtDVT.Text = selectedRow.Cells["DONVITINH"].Value.ToString();          // Giả sử cột giá có tên là "Gia"
-				txtGia.Text = selectedRow.Cells["GIATIEN"].Value.ToString();
+        private void LoadData()
+        {
+            cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT * FROM THIETBI_DICHVU";
+            adt.SelectCommand = cmd;
+            dt.Clear();
+            adt.Fill(dt);
+            dv = new DataView(dt);
+            dataGridView1.DataSource = dt;
+        }
 
-			}
-		}
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                txtMaTB.Text = selectedRow.Cells["MATHIETBI"].Value.ToString();
+                txtTenTB.Text = selectedRow.Cells["TENTHIETBI"].Value.ToString();       
+                txtGia.Text = selectedRow.Cells["GIATIEN"].Value.ToString();
+            }
+        }
 
-		private void cmdAdd_Click(object sender, EventArgs e)
-		{
-			
-				// Kiểm tra nếu các trường nhập liệu không rỗng
-				if (string.IsNullOrWhiteSpace(txtMaTB.Text) ||
-					string.IsNullOrWhiteSpace(txtTenTB.Text) ||
-					string.IsNullOrWhiteSpace(txtDVT.Text) ||
-					string.IsNullOrWhiteSpace(txtGia.Text))
-				{
-					MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-					return;
-				}
-				try
-				{
-					// Mở kết nối
-					con.Open();
 
-					// Tạo câu lệnh SQL để thêm thiết bị
-					string sql = "INSERT INTO THIETBI_DICHVU (MATHIETBI, TENTHIETBI, DONVITINH, GIATIEN) VALUES (@MaThietBi, @TenThietBi, @DonViTinh, @Gia)";
-					cmd = new SqlCommand(sql, con);
+        private void cmdAdd_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra tên thiết bị (chỉ cho phép chữ cái và dấu cách, bao gồm chữ có dấu)
+            foreach (char c in txtTenTB.Text)
+            {
+                // Kiểm tra xem có ký tự nào là số hoặc ký tự đặc biệt không
+                if (char.IsDigit(c) || !char.IsLetter(c) && !char.IsWhiteSpace(c))
+                {
+                    MessageBox.Show("Tên thiết bị chỉ được phép chứa chữ cái (có dấu) và dấu cách.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
 
-					// Thêm tham số vào câu lệnh
-					cmd.Parameters.AddWithValue("@MaThietBi", txtMaTB.Text);
-					cmd.Parameters.AddWithValue("@TenThietBi", txtTenTB.Text);
-					cmd.Parameters.AddWithValue("@DonViTinh", txtDVT.Text);
-					cmd.Parameters.AddWithValue("@Gia", txtGia.Text); // Chuyển đổi kiểu nếu cần
+            // Kiểm tra giá (chỉ cho phép nhập số)
+            if (!decimal.TryParse(txtGia.Text, out decimal gia) || gia <= 0)
+            {
+                MessageBox.Show("Giá chỉ được phép nhập số dương.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-					// Thực thi câu lệnh
-					int rowsAffected = cmd.ExecuteNonQuery();
+            if (string.IsNullOrWhiteSpace(txtMaTB.Text) ||
+                string.IsNullOrWhiteSpace(txtTenTB.Text) ||
+                string.IsNullOrWhiteSpace(txtGia.Text))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-					// Kiểm tra số hàng bị ảnh hưởng
-					if (rowsAffected > 0)
-					{
-						MessageBox.Show("Thêm thiết bị thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-						dt.Clear(); // Xóa dữ liệu cũ trong DataTable
-						adt.Fill(dt); // Tải lại dữ liệu từ cơ sở dữ liệu
-					}
-					else
-					{
-						MessageBox.Show("Không thể thêm thiết bị!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				}
-				finally
-				{
-					// Đóng kết nối
-					if (con.State == ConnectionState.Open)
-					{
-						con.Close();
-					}
-				}
-			
+            try
+            {
+                // Kiểm tra xem Mã thiết bị đã tồn tại trong cơ sở dữ liệu hay chưa
+                using (SqlConnection conCheck = new SqlConnection(connectionstring))
+                {
+                    conCheck.Open();
+                    string checkSql = "SELECT COUNT(*) FROM THIETBI_DICHVU WHERE MATHIETBI = @MaThietBi";
+                    SqlCommand cmdCheck = new SqlCommand(checkSql, conCheck);
+                    cmdCheck.Parameters.AddWithValue("@MaThietBi", txtMaTB.Text);
+                    int count = (int)cmdCheck.ExecuteScalar();
 
-		}
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Mã thiết bị đã tồn tại. Vui lòng nhập mã khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
 
-		private void cmdDelete_Click(object sender, EventArgs e)
-		{
-		
-				// Kiểm tra xem có dòng nào được chọn không
-				if (dataGridView1.SelectedRows.Count > 0)
-				{
-					// Lấy dòng đầu tiên được chọn
-					DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                // Thực hiện thêm thiết bị vào cơ sở dữ liệu
+                con.Open();
+                string sql = "INSERT INTO THIETBI_DICHVU (MATHIETBI, TENTHIETBI, GIATIEN) VALUES (@MaThietBi, @TenThietBi, @Gia)";
+                cmd = new SqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@MaThietBi", txtMaTB.Text);
+                cmd.Parameters.AddWithValue("@TenThietBi", txtTenTB.Text);
+                cmd.Parameters.AddWithValue("@Gia", gia);
+                int rowsAffected = cmd.ExecuteNonQuery();
 
-					// Lấy mã thiết bị từ dòng đã chọn
-					string maThietBi = selectedRow.Cells["MATHIETBI"].Value.ToString(); // Sử dụng tên cột "MATHIETBI"
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Thêm thiết bị thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Không thể thêm thiết bị!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open) con.Close();
+            }
+        }
 
-					// Xác nhận xóa
-					var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn xóa toàn bộ thông tin về thiết bị này không?",
-														 "Xác nhận xóa",
-														 MessageBoxButtons.YesNo);
-					if (confirmResult == DialogResult.Yes)
-					{
-						// Kết nối tới cơ sở dữ liệu
-						using (con = new SqlConnection(connectionstring))
-						{
-							// Mở kết nối
-							con.Open();
+        private void cmdEdit_Click(object sender, EventArgs e)
+        {
 
-							// Tạo câu lệnh xóa
-							cmd = new SqlCommand("DELETE FROM THIETBI_DICHVU WHERE MATHIETBI = @MaThietBi", con);
-							cmd.Parameters.AddWithValue("@MaThietBi", maThietBi);
+            // Kiểm tra tên thiết bị (chỉ cho phép nhập chữ và dấu cách)
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtTenTB.Text, @"^[a-zA-Z\s]+$"))
+            {
+                MessageBox.Show("Tên thiết bị chỉ được phép chứa chữ cái và dấu cách.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-							// Thực thi câu lệnh
-							int rowsAffected = cmd.ExecuteNonQuery();
+            // Kiểm tra giá (chỉ cho phép nhập số)
+            if (!decimal.TryParse(txtGia.Text, out decimal gia) || gia <= 0)
+            {
+                MessageBox.Show("Giá chỉ được phép nhập số dương.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                string maThietBi = selectedRow.Cells["MATHIETBI"].Value.ToString();
+                using (con = new SqlConnection(connectionstring))
+                {
+                    con.Open();
+                    cmd = new SqlCommand("UPDATE THIETBI_DICHVU SET TENTHIETBI = @TenThietBi, GIATIEN = @Gia WHERE MATHIETBI = @MaThietBi", con);
+                    cmd.Parameters.AddWithValue("@MaThietBi", maThietBi);
+                    cmd.Parameters.AddWithValue("@TenThietBi", txtTenTB.Text);
+                    cmd.Parameters.AddWithValue("@Gia", gia);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Cập nhật thông tin thành công.");
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy mã thiết bị để cập nhật.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một dòng để cập nhật.");
+            }
+        }
+        private void cmdDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                string maThietBi = selectedRow.Cells["MATHIETBI"].Value.ToString();
 
-							// Kiểm tra kết quả
-							if (rowsAffected > 0)
-							{
-								MessageBox.Show("Xóa thành công thông tin.");
-								// Cập nhật lại DataGridView
-								LoadData(); // Gọi phương thức để tải lại dữ liệu
-							}
-							else
-							{
-								MessageBox.Show("Không tìm thấy mã thiết bị để xóa.");
-							}
-						}
-					}
-				}
-				else
-				{
-					MessageBox.Show("Vui lòng chọn một dòng để xóa.");
-				}
-		}
+                var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn xóa toàn bộ thông tin về thiết bị này không?",
+"Xác nhận xóa",
+                                                     MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    using (con = new SqlConnection(connectionstring))
+                    {
+                        con.Open();
+                        cmd = new SqlCommand("DELETE FROM THIETBI_DICHVU WHERE MATHIETBI = @MaThietBi", con);
+                        cmd.Parameters.AddWithValue("@MaThietBi", maThietBi);
+                        int rowsAffected = cmd.ExecuteNonQuery();
 
-		private void cmdEdit_Click(object sender, EventArgs e)
-		{
-		
-				// Kiểm tra xem có dòng nào được chọn không
-				if (dataGridView1.SelectedRows.Count > 0)
-				{
-					// Lấy dòng đầu tiên được chọn
-					DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
-
-					// Lấy mã thiết bị từ dòng đã chọn
-					string maThietBi = selectedRow.Cells["MATHIETBI"].Value.ToString(); // Sử dụng tên cột "MATHIETBI"
-
-					// Kiểm tra dữ liệu trong các TextBox trước khi cập nhật
-					if (string.IsNullOrWhiteSpace(txtTenTB.Text) ||
-						string.IsNullOrWhiteSpace(txtDVT.Text) ||
-						string.IsNullOrWhiteSpace(txtGia.Text))
-					{
-						MessageBox.Show("Vui lòng điền đầy đủ thông tin thiết bị, đơn vị tính và giá.");
-						return;
-					}
-
-					// Kết nối tới cơ sở dữ liệu
-					using (con = new SqlConnection(connectionstring))
-					{
-						// Mở kết nối
-						con.Open();
-
-						// Tạo câu lệnh cập nhật
-						cmd = new SqlCommand("UPDATE THIETBI_DICHVU SET TENTHIETBI = @TenThietBi, DONVITINH = @DonViTinh, GIATIEN = @Gia WHERE MATHIETBI = @MaThietBi", con);
-						cmd.Parameters.AddWithValue("@MaThietBi", maThietBi);
-						cmd.Parameters.AddWithValue("@TenThietBi", txtTenTB.Text);
-						cmd.Parameters.AddWithValue("@DonViTinh", txtDVT.Text);
-						cmd.Parameters.AddWithValue("@Gia", decimal.Parse(txtGia.Text)); // Chuyển đổi kiểu nếu cần
-
-						// Thực thi câu lệnh
-						int rowsAffected = cmd.ExecuteNonQuery();
-
-						// Kiểm tra kết quả
-						if (rowsAffected > 0)
-						{
-							MessageBox.Show("Cập nhật thông tin thành công.");
-							// Cập nhật lại DataGridView
-							LoadData(); // Gọi phương thức để tải lại dữ liệu
-						}
-						else
-						{
-							MessageBox.Show("Không tìm thấy mã thiết bị để cập nhật.");
-						}
-					}
-				}
-				else
-				{
-					MessageBox.Show("Vui lòng chọn một dòng để cập nhật.");
-				}
-			
-
-		}
-
-		private void cmdCancel_Click(object sender, EventArgs e)
-		{
-			txtDVT.Clear();
-			txtTenTB.Clear();
-			txtGia.Clear();
-			txtMaTB.Clear();
-
-			txtMaTB.Focus();
-		}
-
-		private void cmdExit_Click(object sender, EventArgs e)
-		{
-			this.Close();
-		}
-	}
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Xóa thành công thông tin.");
+                            LoadData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy mã thiết bị để xóa.");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một dòng để xóa.");
+            }
+        }
+       
+        private void cmdCancel_Click(object sender, EventArgs e)
+        {    
+            txtTenTB.Clear();
+            txtGia.Clear();
+            txtMaTB.Clear();
+            txtMaTB.Focus();
+        }
+        private void cmdExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
 }

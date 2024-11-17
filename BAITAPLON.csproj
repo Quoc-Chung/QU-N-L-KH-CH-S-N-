@@ -59,6 +59,12 @@
     <Compile Include="DangKiPhongThue.Designer.cs">
       <DependentUpon>DangKiPhongThue.cs</DependentUpon>
     </Compile>
+    <Compile Include="DoanhThu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DoanhThu.Designer.cs">
+      <DependentUpon>DoanhThu.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmChangeProfile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,10 +147,14 @@
     <Compile Include="Model\ConnectString.cs" />
     <Compile Include="Model\DichVu.cs" />
     <Compile Include="Model\HoaDon.cs" />
+    <Compile Include="Model\TaiKhoan.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DangKiPhongThue.resx">
       <DependentUpon>DangKiPhongThue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DoanhThu.resx">
+      <DependentUpon>DoanhThu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmChangeProfile.resx">
       <DependentUpon>frmChangeProfile.cs</DependentUpon>
@@ -247,12 +257,47 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LOGIC_DANGKI.txt" />
+    <None Include="Resources\icons8-manage-100.png" />
+    <None Include="Resources\icons8-support-100.png" />
+    <None Include="Resources\icons8-config-100 %281%29.png" />
+    <None Include="Resources\icons8-search-100.png" />
+    <None Include="Resources\icons8-service-50.png" />
     <None Include="Resources\2%28121%29.jpg" />
     <Content Include="Resources\AnhPhong\ba.jpg" />
     <Content Include="Resources\AnhPhong\bay.jpg" />
     <Content Include="Resources\AnhPhong\bon.jpg" />
     <Content Include="Resources\AnhPhong\chin.jpg" />
     <Content Include="Resources\AnhPhong\hai.jpg" />
+    <Content Include="Resources\AnhPhong\hai_muoi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AnhPhong\hai_muoi_ba.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AnhPhong\hai_muoi_bay.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AnhPhong\hai_muoi_bon.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AnhPhong\hai_muoi_chin.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AnhPhong\hai_muoi_hai.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AnhPhong\hai_muoi_mot.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AnhPhong\hai_muoi_nam.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AnhPhong\hai_muoi_sau.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AnhPhong\hai_muoi_tam.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\AnhPhong\mot.jpg" />
     <Content Include="Resources\AnhPhong\muoi.jpg" />
     <Content Include="Resources\AnhPhong\muoiba.jpg" />
@@ -268,10 +313,12 @@
     <Content Include="Resources\AnhPhong\sau.jpg" />
     <Content Include="Resources\AnhPhong\tam.jpg" />
     <Content Include="Resources\AnhThe\ba.jpg" />
+    <Content Include="Resources\AnhThe\bay.jpg" />
     <Content Include="Resources\AnhThe\bon.jpg" />
     <Content Include="Resources\AnhThe\hai.jpg" />
     <Content Include="Resources\AnhThe\mot.jpg" />
     <Content Include="Resources\AnhThe\nam.jpg" />
+    <Content Include="Resources\AnhThe\sau.jpg" />
     <Content Include="Resources\Ani\1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

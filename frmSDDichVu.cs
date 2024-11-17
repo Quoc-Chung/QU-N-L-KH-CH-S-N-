@@ -76,14 +76,14 @@ namespace BAITAPLON
             connection.Open();
             loaddata();
             LoadMaPhong();
-            LoadDataGridView(); // Gọi hàm để tải dữ liệu vào DataGridView
+            LoadDataGridView();
         }
 
         private void LoadDataGridView()
         {
             try
             {
-                // Tạo câu lệnh truy vấn để lấy dữ liệu từ bảng SUDUNGDICHVU kết hợp với THIETBI_DICHVU
+             
                 string query = @"
                     SELECT 
                         S.SHDTHUEPHONG, 
@@ -141,12 +141,10 @@ namespace BAITAPLON
                     {
                         hasCheckedCheckbox = true; // Đã chọn ít nhất 1 checkbox
                     }
-
                     if (numerics[i].Value > 0)
                     {
                         hasNumericSelected = true; // Đã chọn ít nhất 1 numeric
                     }
-
                     if (checkboxes[i].Checked && numerics[i].Value > 0)
                     {
                         string maThietBi = checkboxes[i].Tag.ToString();
@@ -162,11 +160,10 @@ namespace BAITAPLON
                         command.ExecuteNonQuery();
                     }
                 }
-
                 if (hasNumericSelected && !hasCheckedCheckbox)
                 {
                     MessageBox.Show("Vui lòng chọn ít nhất một thiết bị để lưu dữ liệu.");
-                    return; // Ngừng thực hiện nếu không có checkbox nào được chọn
+                    return;
                 }
 
                 if (!hasCheckedCheckbox)
@@ -177,7 +174,7 @@ namespace BAITAPLON
 
                 MessageBox.Show("Lưu dữ liệu thành công!");
 
-                LoadDataGridView(); // Tải lại dữ liệu vào DataGridView sau khi lưu
+                LoadDataGridView(); 
             }
             catch (Exception ex)
             {
@@ -186,13 +183,30 @@ namespace BAITAPLON
         }
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Kiểm tra nếu click vào một dòng hợp lệ
+            // Kiểm tra nếu người dùng nhấp vào một hàng hợp lệ
+            if (e.RowIndex >= 0)
             {
+                // Lấy giá trị của các ô trong dòng được chọn
+                var shdThuePhongValue = dataGridView1.Rows[e.RowIndex].Cells["SHDTHUEPHONG"].Value;
+                var tenThietBiValue = dataGridView1.Rows[e.RowIndex].Cells["TENTHIETBI"].Value;
+                var ngaySuDungValue = dataGridView1.Rows[e.RowIndex].Cells["NGAYSUDUNG"].Value;
+                var soLuongValue = dataGridView1.Rows[e.RowIndex].Cells["SOLUONG"].Value;
+
+                // Kiểm tra nếu bất kỳ giá trị nào là null hoặc trống
+                if (shdThuePhongValue == null || string.IsNullOrEmpty(shdThuePhongValue.ToString()) ||
+                    tenThietBiValue == null || string.IsNullOrEmpty(tenThietBiValue.ToString()) ||
+                    ngaySuDungValue == null || string.IsNullOrEmpty(ngaySuDungValue.ToString()) ||
+                    soLuongValue == null || string.IsNullOrEmpty(soLuongValue.ToString()))
+                {
+                    MessageBox.Show("Dòng này không có đủ dữ liệu. Vui lòng chọn dòng khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Lấy dữ liệu từ dòng được chọn
-                string shdThuePhong = dataGridView1.Rows[e.RowIndex].Cells["SHDTHUEPHONG"].Value.ToString();
-                string tenThietBi = dataGridView1.Rows[e.RowIndex].Cells["TENTHIETBI"].Value.ToString();
-                DateTime ngaySuDung = Convert.ToDateTime(dataGridView1.Rows[e.RowIndex].Cells["NGAYSUDUNG"].Value);
-                int soLuong = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["SOLUONG"].Value);
+                string shdThuePhong = shdThuePhongValue.ToString();
+                string tenThietBi = tenThietBiValue.ToString();
+                DateTime ngaySuDung = Convert.ToDateTime(ngaySuDungValue);
+                int soLuong = Convert.ToInt32(soLuongValue);
 
                 // Cập nhật vào ComboBox
                 cboMaP.SelectedItem = shdThuePhong;
@@ -234,14 +248,13 @@ namespace BAITAPLON
                 dTPicker_NgaySD.Value = ngaySuDung;
             }
         }
-        
+
 
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void btnXoa_Click_1(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0) // Kiểm tra xem có dòng nào được chọn không
@@ -266,7 +279,6 @@ namespace BAITAPLON
                             }
                         }
 
-                        // Cập nhật lại DataGridView
                         LoadDataGridView();
                         MessageBox.Show("Xóa dữ liệu thành công.");
                     }
@@ -280,6 +292,11 @@ namespace BAITAPLON
             {
                 MessageBox.Show("Vui lòng chọn một dòng để xóa.");
             }
+        }
+
+        private void cboMaP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

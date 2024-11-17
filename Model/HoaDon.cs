@@ -8,6 +8,8 @@ namespace BAITAPLON.Model
 {
 	internal class HoaDon
 	{
+		public string SoHoaDonThue {  get; set; }
+		public string maKhachHang { get; set; }
 		public string TenNhanVien { get; set; }
 		public string MaPhong { get; set; }
 		public string MaPhongThue { get; set; }

@@ -63,22 +63,21 @@ namespace BAITAPLON
             this.groupBox1.Controls.Add(this.cmdSave);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBox1.Location = new System.Drawing.Point(16, 15);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(548, 433);
+            this.groupBox1.Size = new System.Drawing.Size(411, 352);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             // 
             // dataGridView
             // 
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(14, 70);
+            this.dataGridView.Location = new System.Drawing.Point(10, 57);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 51;
             this.dataGridView.RowTemplate.Height = 24;
-            this.dataGridView.Size = new System.Drawing.Size(514, 356);
+            this.dataGridView.Size = new System.Drawing.Size(386, 289);
             this.dataGridView.TabIndex = 13;
             // 
             // cboLoaiP
@@ -88,10 +87,9 @@ namespace BAITAPLON
             "Phòng vip",
             "Phòng tầm trung",
             "Phòng thường"});
-            this.cboLoaiP.Location = new System.Drawing.Point(101, 18);
-            this.cboLoaiP.Margin = new System.Windows.Forms.Padding(4);
+            this.cboLoaiP.Location = new System.Drawing.Point(76, 15);
             this.cboLoaiP.Name = "cboLoaiP";
-            this.cboLoaiP.Size = new System.Drawing.Size(223, 28);
+            this.cboLoaiP.Size = new System.Drawing.Size(168, 23);
             this.cboLoaiP.TabIndex = 12;
             this.cboLoaiP.Text = "Chọn loại phòng";
             // 
@@ -99,10 +97,9 @@ namespace BAITAPLON
             // 
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmdCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdCancel.Location = new System.Drawing.Point(443, 20);
-            this.cmdCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdCancel.Location = new System.Drawing.Point(332, 16);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(85, 28);
+            this.cmdCancel.Size = new System.Drawing.Size(64, 23);
             this.cmdCancel.TabIndex = 11;
             this.cmdCancel.Text = "Thoát";
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
@@ -111,10 +108,9 @@ namespace BAITAPLON
             // 
             this.cmdSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmdSave.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSave.Location = new System.Drawing.Point(347, 20);
-            this.cmdSave.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdSave.Location = new System.Drawing.Point(260, 16);
             this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(85, 28);
+            this.cmdSave.Size = new System.Drawing.Size(64, 23);
             this.cmdSave.TabIndex = 10;
             this.cmdSave.Text = "Lưu";
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
@@ -122,19 +118,19 @@ namespace BAITAPLON
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(11, 21);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(8, 17);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 30);
+            this.label2.Size = new System.Drawing.Size(72, 24);
             this.label2.TabIndex = 9;
             this.label2.Text = "Loại phòng:";
             // 
             // checkBoxDieuHoa
             // 
             this.checkBoxDieuHoa.AutoSize = true;
-            this.checkBoxDieuHoa.Location = new System.Drawing.Point(589, 46);
+            this.checkBoxDieuHoa.Location = new System.Drawing.Point(442, 37);
+            this.checkBoxDieuHoa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxDieuHoa.Name = "checkBoxDieuHoa";
-            this.checkBoxDieuHoa.Size = new System.Drawing.Size(82, 20);
+            this.checkBoxDieuHoa.Size = new System.Drawing.Size(69, 17);
             this.checkBoxDieuHoa.TabIndex = 17;
             this.checkBoxDieuHoa.Text = "Điều hoà";
             this.checkBoxDieuHoa.UseVisualStyleBackColor = true;
@@ -143,9 +139,10 @@ namespace BAITAPLON
             // checkBoxTivi
             // 
             this.checkBoxTivi.AutoSize = true;
-            this.checkBoxTivi.Location = new System.Drawing.Point(589, 74);
+            this.checkBoxTivi.Location = new System.Drawing.Point(442, 60);
+            this.checkBoxTivi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxTivi.Name = "checkBoxTivi";
-            this.checkBoxTivi.Size = new System.Drawing.Size(51, 20);
+            this.checkBoxTivi.Size = new System.Drawing.Size(43, 17);
             this.checkBoxTivi.TabIndex = 18;
             this.checkBoxTivi.Text = "Tivi";
             this.checkBoxTivi.UseVisualStyleBackColor = true;
@@ -154,9 +151,10 @@ namespace BAITAPLON
             // checkBoxGiuong
             // 
             this.checkBoxGiuong.AutoSize = true;
-            this.checkBoxGiuong.Location = new System.Drawing.Point(589, 104);
+            this.checkBoxGiuong.Location = new System.Drawing.Point(442, 84);
+            this.checkBoxGiuong.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxGiuong.Name = "checkBoxGiuong";
-            this.checkBoxGiuong.Size = new System.Drawing.Size(72, 20);
+            this.checkBoxGiuong.Size = new System.Drawing.Size(60, 17);
             this.checkBoxGiuong.TabIndex = 19;
             this.checkBoxGiuong.Text = "Giường";
             this.checkBoxGiuong.UseVisualStyleBackColor = true;
@@ -165,9 +163,10 @@ namespace BAITAPLON
             // checkBoxMaychoigame
             // 
             this.checkBoxMaychoigame.AutoSize = true;
-            this.checkBoxMaychoigame.Location = new System.Drawing.Point(589, 132);
+            this.checkBoxMaychoigame.Location = new System.Drawing.Point(442, 107);
+            this.checkBoxMaychoigame.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxMaychoigame.Name = "checkBoxMaychoigame";
-            this.checkBoxMaychoigame.Size = new System.Drawing.Size(121, 20);
+            this.checkBoxMaychoigame.Size = new System.Drawing.Size(98, 17);
             this.checkBoxMaychoigame.TabIndex = 20;
             this.checkBoxMaychoigame.Text = "Máy chơi game";
             this.checkBoxMaychoigame.UseVisualStyleBackColor = true;
@@ -176,9 +175,10 @@ namespace BAITAPLON
             // checkBoxBinhnonglanh
             // 
             this.checkBoxBinhnonglanh.AutoSize = true;
-            this.checkBoxBinhnonglanh.Location = new System.Drawing.Point(589, 160);
+            this.checkBoxBinhnonglanh.Location = new System.Drawing.Point(442, 130);
+            this.checkBoxBinhnonglanh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxBinhnonglanh.Name = "checkBoxBinhnonglanh";
-            this.checkBoxBinhnonglanh.Size = new System.Drawing.Size(116, 20);
+            this.checkBoxBinhnonglanh.Size = new System.Drawing.Size(97, 17);
             this.checkBoxBinhnonglanh.TabIndex = 21;
             this.checkBoxBinhnonglanh.Text = "Bình nóng lạnh";
             this.checkBoxBinhnonglanh.UseVisualStyleBackColor = true;
@@ -187,9 +187,10 @@ namespace BAITAPLON
             // checkBoxDendien
             // 
             this.checkBoxDendien.AutoSize = true;
-            this.checkBoxDendien.Location = new System.Drawing.Point(589, 188);
+            this.checkBoxDendien.Location = new System.Drawing.Point(442, 153);
+            this.checkBoxDendien.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxDendien.Name = "checkBoxDendien";
-            this.checkBoxDendien.Size = new System.Drawing.Size(82, 20);
+            this.checkBoxDendien.Size = new System.Drawing.Size(70, 17);
             this.checkBoxDendien.TabIndex = 22;
             this.checkBoxDendien.Text = "Đèn điện";
             this.checkBoxDendien.UseVisualStyleBackColor = true;
@@ -198,9 +199,10 @@ namespace BAITAPLON
             // checkBoxBan
             // 
             this.checkBoxBan.AutoSize = true;
-            this.checkBoxBan.Location = new System.Drawing.Point(589, 216);
+            this.checkBoxBan.Location = new System.Drawing.Point(442, 176);
+            this.checkBoxBan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxBan.Name = "checkBoxBan";
-            this.checkBoxBan.Size = new System.Drawing.Size(56, 20);
+            this.checkBoxBan.Size = new System.Drawing.Size(48, 17);
             this.checkBoxBan.TabIndex = 23;
             this.checkBoxBan.Text = "Bàn ";
             this.checkBoxBan.UseVisualStyleBackColor = true;
@@ -209,9 +211,10 @@ namespace BAITAPLON
             // checkBoxGhe
             // 
             this.checkBoxGhe.AutoSize = true;
-            this.checkBoxGhe.Location = new System.Drawing.Point(589, 244);
+            this.checkBoxGhe.Location = new System.Drawing.Point(442, 198);
+            this.checkBoxGhe.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxGhe.Name = "checkBoxGhe";
-            this.checkBoxGhe.Size = new System.Drawing.Size(54, 20);
+            this.checkBoxGhe.Size = new System.Drawing.Size(46, 17);
             this.checkBoxGhe.TabIndex = 24;
             this.checkBoxGhe.Text = "Ghế";
             this.checkBoxGhe.UseVisualStyleBackColor = true;
@@ -231,9 +234,10 @@ namespace BAITAPLON
             this.domainUpDownDieuhoa.Items.Add("2");
             this.domainUpDownDieuhoa.Items.Add("1");
             this.domainUpDownDieuhoa.Items.Add("0");
-            this.domainUpDownDieuhoa.Location = new System.Drawing.Point(828, 45);
+            this.domainUpDownDieuhoa.Location = new System.Drawing.Point(621, 37);
+            this.domainUpDownDieuhoa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.domainUpDownDieuhoa.Name = "domainUpDownDieuhoa";
-            this.domainUpDownDieuhoa.Size = new System.Drawing.Size(57, 22);
+            this.domainUpDownDieuhoa.Size = new System.Drawing.Size(43, 20);
             this.domainUpDownDieuhoa.TabIndex = 25;
             this.domainUpDownDieuhoa.Text = "0";
             this.domainUpDownDieuhoa.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -253,9 +257,10 @@ namespace BAITAPLON
             this.domainUpDownTivi.Items.Add("2");
             this.domainUpDownTivi.Items.Add("1");
             this.domainUpDownTivi.Items.Add("0");
-            this.domainUpDownTivi.Location = new System.Drawing.Point(828, 73);
+            this.domainUpDownTivi.Location = new System.Drawing.Point(621, 59);
+            this.domainUpDownTivi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.domainUpDownTivi.Name = "domainUpDownTivi";
-            this.domainUpDownTivi.Size = new System.Drawing.Size(57, 22);
+            this.domainUpDownTivi.Size = new System.Drawing.Size(43, 20);
             this.domainUpDownTivi.TabIndex = 26;
             this.domainUpDownTivi.Text = "0";
             this.domainUpDownTivi.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -274,9 +279,10 @@ namespace BAITAPLON
             this.domainUpDownGiuong.Items.Add("2");
             this.domainUpDownGiuong.Items.Add("1");
             this.domainUpDownGiuong.Items.Add("0");
-            this.domainUpDownGiuong.Location = new System.Drawing.Point(828, 101);
+            this.domainUpDownGiuong.Location = new System.Drawing.Point(621, 82);
+            this.domainUpDownGiuong.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.domainUpDownGiuong.Name = "domainUpDownGiuong";
-            this.domainUpDownGiuong.Size = new System.Drawing.Size(57, 22);
+            this.domainUpDownGiuong.Size = new System.Drawing.Size(43, 20);
             this.domainUpDownGiuong.TabIndex = 27;
             this.domainUpDownGiuong.Text = "0";
             this.domainUpDownGiuong.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -295,9 +301,10 @@ namespace BAITAPLON
             this.domainUpDownMaychoigame.Items.Add("2");
             this.domainUpDownMaychoigame.Items.Add("1");
             this.domainUpDownMaychoigame.Items.Add("0");
-            this.domainUpDownMaychoigame.Location = new System.Drawing.Point(828, 131);
+            this.domainUpDownMaychoigame.Location = new System.Drawing.Point(621, 106);
+            this.domainUpDownMaychoigame.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.domainUpDownMaychoigame.Name = "domainUpDownMaychoigame";
-            this.domainUpDownMaychoigame.Size = new System.Drawing.Size(57, 22);
+            this.domainUpDownMaychoigame.Size = new System.Drawing.Size(43, 20);
             this.domainUpDownMaychoigame.TabIndex = 28;
             this.domainUpDownMaychoigame.Text = "0";
             this.domainUpDownMaychoigame.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -315,9 +322,10 @@ namespace BAITAPLON
             this.domainUpDownBinhnonglanh.Items.Add("3");
             this.domainUpDownBinhnonglanh.Items.Add("2");
             this.domainUpDownBinhnonglanh.Items.Add("0");
-            this.domainUpDownBinhnonglanh.Location = new System.Drawing.Point(828, 159);
+            this.domainUpDownBinhnonglanh.Location = new System.Drawing.Point(621, 129);
+            this.domainUpDownBinhnonglanh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.domainUpDownBinhnonglanh.Name = "domainUpDownBinhnonglanh";
-            this.domainUpDownBinhnonglanh.Size = new System.Drawing.Size(57, 22);
+            this.domainUpDownBinhnonglanh.Size = new System.Drawing.Size(43, 20);
             this.domainUpDownBinhnonglanh.TabIndex = 29;
             this.domainUpDownBinhnonglanh.Text = "0";
             this.domainUpDownBinhnonglanh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -336,9 +344,10 @@ namespace BAITAPLON
             this.domainUpDownDendien.Items.Add("2");
             this.domainUpDownDendien.Items.Add("1");
             this.domainUpDownDendien.Items.Add("0");
-            this.domainUpDownDendien.Location = new System.Drawing.Point(828, 187);
+            this.domainUpDownDendien.Location = new System.Drawing.Point(621, 152);
+            this.domainUpDownDendien.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.domainUpDownDendien.Name = "domainUpDownDendien";
-            this.domainUpDownDendien.Size = new System.Drawing.Size(57, 22);
+            this.domainUpDownDendien.Size = new System.Drawing.Size(43, 20);
             this.domainUpDownDendien.TabIndex = 30;
             this.domainUpDownDendien.Text = "0";
             this.domainUpDownDendien.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -357,9 +366,10 @@ namespace BAITAPLON
             this.domainUpDownBan.Items.Add("2");
             this.domainUpDownBan.Items.Add("1");
             this.domainUpDownBan.Items.Add("0");
-            this.domainUpDownBan.Location = new System.Drawing.Point(828, 215);
+            this.domainUpDownBan.Location = new System.Drawing.Point(621, 175);
+            this.domainUpDownBan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.domainUpDownBan.Name = "domainUpDownBan";
-            this.domainUpDownBan.Size = new System.Drawing.Size(57, 22);
+            this.domainUpDownBan.Size = new System.Drawing.Size(43, 20);
             this.domainUpDownBan.TabIndex = 31;
             this.domainUpDownBan.Text = "0";
             this.domainUpDownBan.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -378,18 +388,19 @@ namespace BAITAPLON
             this.domainUpDownGhe.Items.Add("2");
             this.domainUpDownGhe.Items.Add("1");
             this.domainUpDownGhe.Items.Add("0");
-            this.domainUpDownGhe.Location = new System.Drawing.Point(828, 243);
+            this.domainUpDownGhe.Location = new System.Drawing.Point(621, 197);
+            this.domainUpDownGhe.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.domainUpDownGhe.Name = "domainUpDownGhe";
-            this.domainUpDownGhe.Size = new System.Drawing.Size(57, 22);
+            this.domainUpDownGhe.Size = new System.Drawing.Size(43, 20);
             this.domainUpDownGhe.TabIndex = 32;
             this.domainUpDownGhe.Text = "0";
             this.domainUpDownGhe.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // frmTBTrangThietBi
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 478);
+            this.ClientSize = new System.Drawing.Size(692, 374);
             this.Controls.Add(this.domainUpDownGhe);
             this.Controls.Add(this.domainUpDownBan);
             this.Controls.Add(this.domainUpDownDendien);
@@ -408,7 +419,6 @@ namespace BAITAPLON
             this.Controls.Add(this.checkBoxDieuHoa);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmTBTrangThietBi";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TRANG THIẾT BỊ CHO LOẠI PHÒNG";

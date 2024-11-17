@@ -50,60 +50,108 @@ namespace BAITAPLON
 			dataGridView1.DataSource = dt;
 		}
 
-		private void btnThem_Click(object sender, EventArgs e)
-		{
-			// Kiểm tra nếu các trường nhập liệu không rỗng
-			if (string.IsNullOrWhiteSpace(txtMaLoaiP.Text) ||
-				string.IsNullOrWhiteSpace(txtLoaiP.Text) ||
-				string.IsNullOrWhiteSpace(txtGia.Text))
-			{
-				MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra nếu các trường nhập liệu không rỗng
+            if (string.IsNullOrWhiteSpace(txtMaLoaiP.Text) ||
+                string.IsNullOrWhiteSpace(txtLoaiP.Text) ||
+                string.IsNullOrWhiteSpace(txtGia.Text))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-			try
-			{
-				// Mở kết nối
-				con.Open();
+            // Validate Mã Loại Phòng (chỉ cho phép chữ và số)
+            for (int i = 0; i < txtMaLoaiP.Text.Length; i++)
+            {
+                char c = txtMaLoaiP.Text[i];
+                // Kiểm tra nếu ký tự không phải là chữ cái hoặc số
+                if (!Char.IsLetterOrDigit(c))
+                {
+                    MessageBox.Show("Mã loại phòng chỉ được phép chứa chữ cái và số.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
 
-				// Tạo câu lệnh SQL để thêm loại phòng
-				string sql = "INSERT INTO LOAIPHONG (MALOAIPHONG, LOAIPHONG, GIATIEN) VALUES (@MaLoaiP, @TenLoaiP, @Gia)";
-				cmd = new SqlCommand(sql, con);
+            // Validate Loại Phòng (chỉ cho phép chữ và dấu cách)
+            for (int i = 0; i < txtLoaiP.Text.Length; i++)
+            {
+                char c = txtLoaiP.Text[i];
+                // Kiểm tra nếu ký tự không phải là chữ cái hoặc dấu cách
+                if (!Char.IsLetter(c) && !Char.IsWhiteSpace(c))
+                {
+                    MessageBox.Show("Loại phòng chỉ được phép chứa chữ cái và dấu cách.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
 
-				// Thêm tham số vào câu lệnh
-				cmd.Parameters.AddWithValue("@MaLoaiP", txtMaLoaiP.Text);
-				cmd.Parameters.AddWithValue("@TenLoaiP", txtLoaiP.Text);
-				cmd.Parameters.AddWithValue("@Gia", txtGia.Text); // Chuyển đổi kiểu nếu cần
+            // Validate Giá Tiền (chỉ cho phép số)
+            if (!decimal.TryParse(txtGia.Text, out decimal gia) || gia <= 0)
+            {
+                MessageBox.Show("Giá chỉ được phép nhập số dương.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-				// Thực thi câu lệnh
-				int rowsAffected = cmd.ExecuteNonQuery();
+            try
+            {
+                // Kiểm tra xem Mã Loại Phòng đã tồn tại trong cơ sở dữ liệu hay chưa
+                using (SqlConnection conCheck = new SqlConnection(connectionstring))
+                {
+                    conCheck.Open();
+                    string checkSql = "SELECT COUNT(*) FROM LOAIPHONG WHERE MALOAIPHONG = @MaLoaiP";
+                    SqlCommand cmdCheck = new SqlCommand(checkSql, conCheck);
+                    cmdCheck.Parameters.AddWithValue("@MaLoaiP", txtMaLoaiP.Text);
+                    int count = (int)cmdCheck.ExecuteScalar();
 
-				// Kiểm tra số hàng bị ảnh hưởng
-				if (rowsAffected > 0)
-				{
-					MessageBox.Show("Thêm loại phòng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					dt.Clear(); // Xóa dữ liệu cũ trong DataTable
-					adt.Fill(dt); // Tải lại dữ liệu từ cơ sở dữ liệu
-				}
-				else
-				{
-					MessageBox.Show("Không thể thêm loại phòng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				}
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			finally
-			{
-				// Đóng kết nối
-				if (con.State == ConnectionState.Open)
-				{
-					con.Close();
-				}
-			}
-		}
-		private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Mã loại phòng đã tồn tại. Vui lòng nhập mã khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                // Mở kết nối
+                con.Open();
+
+                // Tạo câu lệnh SQL để thêm loại phòng
+                string sql = "INSERT INTO LOAIPHONG (MALOAIPHONG, LOAIPHONG, GIATIEN) VALUES (@MaLoaiP, @TenLoaiP, @Gia)";
+                cmd = new SqlCommand(sql, con);
+
+                // Thêm tham số vào câu lệnh
+                cmd.Parameters.AddWithValue("@MaLoaiP", txtMaLoaiP.Text);
+                cmd.Parameters.AddWithValue("@TenLoaiP", txtLoaiP.Text);
+                cmd.Parameters.AddWithValue("@Gia", gia);
+
+                // Thực thi câu lệnh
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                // Kiểm tra số hàng bị ảnh hưởng
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Thêm loại phòng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dt.Clear(); // Xóa dữ liệu cũ trong DataTable
+                    adt.Fill(dt); // Tải lại dữ liệu từ cơ sở dữ liệu
+                }
+                else
+                {
+                    MessageBox.Show("Không thể thêm loại phòng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Đóng kết nối
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
 		{
 			// Kiểm tra xem có dòng nào được chọn không
 			if (dataGridView1.SelectedRows.Count > 0)
@@ -116,7 +164,8 @@ namespace BAITAPLON
 				txtLoaiP.Text = selectedRow.Cells["LOAIPHONG"].Value.ToString();  // Giả sử cột tên loại phòng có tên là "TenLoaiP"
 				txtGia.Text = selectedRow.Cells["GIATIEN"].Value.ToString();          // Giả sử cột giá có tên là "Gia"
 			}
-		}
+            txtMaLoaiP.ReadOnly = true;
+        }
 
 		private void btnXoa_Click(object sender, EventArgs e)
 		{
@@ -167,60 +216,115 @@ namespace BAITAPLON
 				MessageBox.Show("Vui lòng chọn một dòng để xóa.");
 			}
 		}
-		private void btnSua_Click(object sender, EventArgs e)
-		{
-			// Kiểm tra xem có dòng nào được chọn không
-			if (dataGridView1.SelectedRows.Count > 0)
-			{
-				// Lấy dòng đầu tiên được chọn
-				DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra xem có dòng nào được chọn không
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                // Lấy dòng đầu tiên được chọn
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
 
-				// Lấy mã loại phòng từ dòng đã chọn
-				string maLoaiP = selectedRow.Cells["MALOAIPHONG"].Value.ToString(); // Sử dụng tên cột "MALOAIPHONG"
+                // Lấy mã loại phòng từ dòng đã chọn
+                string maLoaiP = selectedRow.Cells["MALOAIPHONG"].Value.ToString(); // Sử dụng tên cột "MALOAIPHONG"
 
-				// Kiểm tra dữ liệu trong các TextBox trước khi cập nhật
-				if (string.IsNullOrWhiteSpace(txtLoaiP.Text) || string.IsNullOrWhiteSpace(txtGia.Text))
-				{
-					MessageBox.Show("Vui lòng điền đầy đủ thông tin loại phòng và giá.");
-					return;
-				}
+                // Kiểm tra dữ liệu trong các TextBox trước khi cập nhật
+                if (string.IsNullOrWhiteSpace(txtLoaiP.Text) || string.IsNullOrWhiteSpace(txtGia.Text))
+                {
+                    MessageBox.Show("Vui lòng điền đầy đủ thông tin loại phòng và giá.");
+                    return;
+                }
 
-				// Kết nối tới cơ sở dữ liệu
-				using (con = new SqlConnection(connectionstring))
-				{
-					// Mở kết nối
-					con.Open();
+                // Validate Mã Loại Phòng
+                for (int i = 0; i < txtMaLoaiP.Text.Length; i++)
+                {
+                    char c = txtMaLoaiP.Text[i];
+                    if (!Char.IsLetterOrDigit(c))
+                    {
+                        MessageBox.Show("Mã loại phòng chỉ được phép chứa chữ cái và số.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
 
-					// Tạo câu lệnh cập nhật
-					cmd = new SqlCommand("UPDATE LOAIPHONG SET LOAIPHONG = @TenLoaiP, GIATIEN = @Gia WHERE MALOAIPHONG = @MaLoaiP", con);
-					cmd.Parameters.AddWithValue("@MaLoaiP", maLoaiP);
-					cmd.Parameters.AddWithValue("@TenLoaiP", txtLoaiP.Text);
-					cmd.Parameters.AddWithValue("@Gia", decimal.Parse(txtGia.Text)); // Chuyển đổi kiểu nếu cần
+                // Validate Loại Phòng
+                for (int i = 0; i < txtLoaiP.Text.Length; i++)
+                {
+                    char c = txtLoaiP.Text[i];
+                    if (!Char.IsLetter(c) && !Char.IsWhiteSpace(c))
+                    {
+                        MessageBox.Show("Loại phòng chỉ được phép chứa chữ cái và dấu cách.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
 
-					// Thực thi câu lệnh
-					int rowsAffected = cmd.ExecuteNonQuery();
+                // Validate giá
+                if (!decimal.TryParse(txtGia.Text, out decimal gia) || gia <= 0)
+                {
+                    MessageBox.Show("Giá chỉ được phép nhập số dương.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-					// Kiểm tra kết quả
-					if (rowsAffected > 0)
-					{
-						MessageBox.Show("Cập nhật thông tin thành công.");
-						// Cập nhật lại DataGridView
-						LoadData(); // Gọi phương thức để tải lại dữ liệu
-					}
-					else
-					{
-						MessageBox.Show("Không tìm thấy mã loại phòng để cập nhật.");
-					}
-				}
-			}
-			else
-			{
-				MessageBox.Show("Vui lòng chọn một dòng để cập nhật.");
-			}
-		}
-		
+                // Kiểm tra Mã Loại Phòng mới có trùng với mã khác không
+                string newMaLoaiP = txtMaLoaiP.Text.Trim();
+                using (SqlConnection conCheck = new SqlConnection(connectionstring))
+                {
+                    conCheck.Open();
+                    string checkSql = "SELECT COUNT(*) FROM LOAIPHONG WHERE MALOAIPHONG = @NewMaLoaiP AND MALOAIPHONG != @OldMaLoaiP";
+                    SqlCommand cmdCheck = new SqlCommand(checkSql, conCheck);
+                    cmdCheck.Parameters.AddWithValue("@NewMaLoaiP", newMaLoaiP);
+                    cmdCheck.Parameters.AddWithValue("@OldMaLoaiP", maLoaiP);
+                    int count = (int)cmdCheck.ExecuteScalar();
 
-		private void btnThoat_Click(object sender, EventArgs e)
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Mã loại phòng này đã tồn tại. Vui lòng nhập mã loại phòng khác.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                try
+                {
+                    // Kết nối tới cơ sở dữ liệu
+                    using (con = new SqlConnection(connectionstring))
+                    {
+                        // Mở kết nối
+                        con.Open();
+
+                        // Tạo câu lệnh cập nhật
+                        cmd = new SqlCommand("UPDATE LOAIPHONG SET LOAIPHONG = @TenLoaiP, GIATIEN = @Gia WHERE MALOAIPHONG = @MaLoaiP", con);
+                        cmd.Parameters.AddWithValue("@MaLoaiP", maLoaiP);
+                        cmd.Parameters.AddWithValue("@TenLoaiP", txtLoaiP.Text);
+                        cmd.Parameters.AddWithValue("@Gia", gia);
+
+                        // Thực thi câu lệnh
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        // Kiểm tra kết quả
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Cập nhật thông tin thành công.");
+                            // Cập nhật lại DataGridView
+                            LoadData(); // Gọi phương thức để tải lại dữ liệu
+                            txtMaLoaiP.ReadOnly = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không thể cập nhật loại phòng.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một dòng để cập nhật.");
+            }
+        }
+
+
+        private void btnThoat_Click(object sender, EventArgs e)
 		{
 			// Đóng form hiện tại
 			this.Close();

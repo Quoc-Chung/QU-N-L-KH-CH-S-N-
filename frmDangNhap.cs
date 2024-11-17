@@ -16,7 +16,7 @@ namespace BAITAPLON
 		private string imagePath3 = System.IO.Path.Combine(Application.StartupPath, "Resources", "Ani", "3.gif");
 		private string imagePath4 = System.IO.Path.Combine(Application.StartupPath, "Resources", "Ani", "4.png");
 
-		private bool gifShown = false; // Biến để kiểm tra GIF đã được hiển thị hay chưa
+		private bool gifShown = false; 
 
 		public frmDangNhap()
 		{
@@ -24,76 +24,89 @@ namespace BAITAPLON
 
 			pictureBoxStatus.SizeMode = PictureBoxSizeMode.StretchImage;
 			pictureBoxStatus.Image = Image.FromFile(imagePath1);
-			txtMaNhanVien.Focus();
+			txtTaiKhoan.Focus();
 		}
 
-		private void btnDangNhap_Click(object sender, EventArgs e)
-		{
-			// Kiểm tra xem người dùng đã nhập đủ thông tin chưa
-			if (string.IsNullOrWhiteSpace(txtMaNhanVien.Text))
-			{
-				MessageBox.Show("Vui lòng nhập tên đăng nhập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				txtMaNhanVien.Focus();
-				return;
-			}
+        private void btnDangNhap_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra xem mã tài khoản có hợp lệ không
+            string username = txtTaiKhoan.Text.Trim();
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                MessageBox.Show("Vui lòng nhập mã tài khoản.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTaiKhoan.Focus();
+                return;
+            }
 
-			if (string.IsNullOrWhiteSpace(txtMatKhau.Text))
-			{
-				MessageBox.Show("Vui lòng nhập mật khẩu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				txtMatKhau.Focus();
-				return;
-			}
+            // Kiểm tra mã tài khoản có chứa ký tự đặc biệt hoặc khoảng trắng không
+            if (username.Contains(" ") || !System.Text.RegularExpressions.Regex.IsMatch(username, @"^[a-zA-Z0-9_]+$"))
+            {
+                MessageBox.Show("Mã tài khoản không được chứa khoảng trắng hoặc ký tự đặc biệt. Chỉ chấp nhận chữ, số và '_'.",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTaiKhoan.Text = ""; // Xóa nội dung không hợp lệ
+                txtTaiKhoan.Focus();
+                return;
+            }
+            // Kiểm tra xem mật khẩu có để trống không
+            string password = txtMatKhau.Text.Trim();
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMatKhau.Focus();
+                return;
+            }
 
-			// Kiểm tra thông tin đăng nhập
-			string username = txtMaNhanVien.Text;
-			string password = txtMatKhau.Text;
+            // Thực hiện kiểm tra thông tin đăng nhập
+            using (connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM TAI_KHOAN WHERE MATAIKHOAN = @username AND MATKHAU = @password";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", username);
+                        command.Parameters.AddWithValue("@password", password);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string hoTen = reader["HOTEN"].ToString();
+                                string quyen = reader["QUYEN"].ToString();
+                                DateTime ngaySinh = Convert.ToDateTime(reader["NGAYSINH"]);
 
-			using (connection = new SqlConnection(connectionString))
-			{
-				try
-				{
-					connection.Open();
-					string query = "SELECT * FROM NHANVIEN WHERE MANHANVIEN = @username AND MATKHAU = @password";
-					using (SqlCommand command = new SqlCommand(query, connection))
-					{
-						command.Parameters.AddWithValue("@username", username);
-						command.Parameters.AddWithValue("@password", password);
+                                MessageBox.Show($"Đăng nhập thành công! Chào mừng {hoTen}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-						using (SqlDataReader reader = command.ExecuteReader())
-						{
-							if (reader.Read())
-							{
-								string hoTen = reader["HOTEN"].ToString();
-								DateTime ngaySinh = Convert.ToDateTime(reader["NGAYSINH"]);
+                                this.Hide(); // Ẩn form đăng nhập
+								TaiKhoan.maTaiKhoan = username;
+								TaiKhoan.tenTaiKhoan = hoTen;
+								TaiKhoan.Quyen = quyen;
+                                frmMain mainForm = new frmMain
+                                {
+                                    MaNhanVien = username,
+                                    HoTen = hoTen,
+                                    PassWord = password,
+                                    NgaySinh = ngaySinh,
+									Quyen = quyen
 
-								MessageBox.Show($"Đăng nhập thành công! Chào mừng {hoTen}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-								this.Hide(); // Hide the login form
-
-								frmMain mainForm = new frmMain
-								{
-									MaNhanVien = username,
-									HoTen = hoTen,
-									PassWord = password,
-									NgaySinh = ngaySinh
-								};
-								mainForm.LoadData();
-								mainForm.Show();
-							}
-							else
-							{
-								MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng.");
-							}
-						}
-					}
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show("Lỗi khi kết nối đến cơ sở dữ liệu: " + ex.Message);
-				}
-			}
-		}
-		private void btnThoat_Click(object sender, EventArgs e)
+                                };
+                                mainForm.LoadData();
+                                mainForm.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi kết nối đến cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void btnThoat_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("Bạn có muốn thoát chương trình ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
 			{
@@ -127,7 +140,7 @@ namespace BAITAPLON
 
 		private void txtMaNhanVien_TextChanged(object sender, EventArgs e)
 		{
-			if (!string.IsNullOrWhiteSpace(txtMaNhanVien.Text))
+			if (!string.IsNullOrWhiteSpace(txtTaiKhoan.Text))
 			{
 				pictureBoxStatus.Image = Image.FromFile(imagePath2);
 			}
