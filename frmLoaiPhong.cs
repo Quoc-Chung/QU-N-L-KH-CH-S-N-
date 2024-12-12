@@ -36,7 +36,7 @@ namespace BAITAPLON
 			adt.Fill(dt);
 			dv = new DataView(dt);
 			dataGridView1.DataSource = dt;
-
+			dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
 		}
 		private void LoadData()
